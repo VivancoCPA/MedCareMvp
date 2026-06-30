@@ -1,0 +1,71 @@
+import type { ConsultationResult } from '@/types'
+import { SEED_IDS } from './ids'
+
+export let mockConsultationResults: ConsultationResult[] = [
+  {
+    id: SEED_IDS.consultationResults.cr0001,
+    appointmentId: SEED_IDS.appointments.cita001,
+    groupId: SEED_IDS.groups.familiaGarcia,
+    memberId: SEED_IDS.users.adminGarcia,
+    memberType: 'user',
+    diagnosis: 'Hipertensión arterial controlada. Presión 130/85 mmHg.',
+    indications: null,
+    medications: [
+      {
+        id: 'med-001',
+        name: 'Losartán',
+        dose: '50mg',
+        frequency: 'Una vez al día',
+        durationDays: null,
+        startDate: '2026-04-10',
+        pharmacyId: null,
+      },
+      {
+        id: 'med-002',
+        name: 'Amlodipino',
+        dose: '5mg',
+        frequency: 'Una vez al día',
+        durationDays: 90,
+        startDate: '2026-04-10',
+        pharmacyId: null,
+      },
+    ],
+    nextAppointmentDate: '2026-07-10T00:00:00Z',
+    createdAt: '2026-04-10T10:00:00Z',
+    updatedAt: '2026-04-10T10:00:00Z',
+    deletedAt: null,
+  },
+  {
+    id: SEED_IDS.consultationResults.cr0002,
+    appointmentId: SEED_IDS.appointments.cita003,
+    groupId: SEED_IDS.groups.familiaGarcia,
+    memberId: SEED_IDS.users.memberMaria,
+    memberType: 'user',
+    diagnosis: 'Faringoamigdalitis aguda bacteriana.',
+    indications: null,
+    medications: [
+      {
+        id: 'med-003',
+        name: 'Amoxicilina',
+        dose: '500mg',
+        frequency: 'Cada 8 horas',
+        durationDays: 7,
+        startDate: '2026-05-05',
+        pharmacyId: null,
+      },
+      {
+        id: 'med-004',
+        name: 'Ibuprofeno',
+        dose: '400mg',
+        frequency: 'Cada 8 horas',
+        durationDays: 5,
+        startDate: '2026-05-05',
+        pharmacyId: null,
+      },
+    ],
+    nextAppointmentDate: null,
+    createdAt: '2026-05-05T11:00:00Z',
+    updatedAt: '2026-05-05T11:00:00Z',
+    deletedAt: null,
+  },
+]
