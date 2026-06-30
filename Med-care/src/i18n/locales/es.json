@@ -1,5 +1,61 @@
 {
-  "auth": {},
+  "auth": {
+    "login": {
+      "title": "Iniciar sesión",
+      "subtitle": "Ingresa tus credenciales para continuar",
+      "emailLabel": "Correo electrónico",
+      "passwordLabel": "Contraseña",
+      "submit": "Ingresar",
+      "forgotPassword": "¿Olvidaste tu contraseña?"
+    },
+    "changePassword": {
+      "title": "Cambiar contraseña",
+      "subtitle": "Establece tu nueva contraseña de acceso",
+      "currentPasswordLabel": "Contraseña actual",
+      "newPasswordLabel": "Nueva contraseña",
+      "confirmPasswordLabel": "Confirmar contraseña",
+      "submit": "Cambiar contraseña",
+      "rules": {
+        "minLength": "Mínimo 8 caracteres",
+        "uppercase": "Una letra mayúscula",
+        "lowercase": "Una letra minúscula",
+        "number": "Un número",
+        "special": "Un carácter especial"
+      }
+    },
+    "forgotPassword": {
+      "title": "Recuperar contraseña",
+      "subtitle": "Te enviaremos las instrucciones a tu correo",
+      "emailLabel": "Correo electrónico",
+      "submit": "Enviar instrucciones",
+      "backToLogin": "Volver al inicio de sesión",
+      "sentState": "Te hemos enviado las instrucciones de recuperación. Revisa tu bandeja de entrada.",
+      "resend": "Reenviar instrucciones"
+    },
+    "errors": {
+      "invalidCredentials": "Credenciales incorrectas. Verifica tu correo y contraseña.",
+      "accountDisabled": "Esta cuenta está desactivada. Contacta al administrador.",
+      "invalidCurrentPassword": "La contraseña actual es incorrecta.",
+      "sameAsCurrent": "La nueva contraseña debe ser diferente a la actual."
+    },
+    "logout": "Cerrar sesión",
+    "devRoleSwitcher": {
+      "label": "Seleccionar usuario (Dev)",
+      "placeholder": "Seleccionar usuario..."
+    }
+  },
+  "validation": {
+    "required": "Este campo es requerido",
+    "email": "Ingresa un correo electrónico válido",
+    "password": {
+      "minLength": "Mínimo 8 caracteres",
+      "uppercase": "Al menos una letra mayúscula",
+      "lowercase": "Al menos una letra minúscula",
+      "number": "Al menos un número",
+      "special": "Al menos un carácter especial",
+      "mustMatch": "Las contraseñas no coinciden"
+    }
+  },
   "common": {},
   "users": {},
   "groups": {},

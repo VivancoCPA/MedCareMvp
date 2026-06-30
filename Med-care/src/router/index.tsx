@@ -1,21 +1,24 @@
+import { lazy, Suspense } from 'react'
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom'
 import { ProtectedRoute } from './ProtectedRoute'
 import { RoleGuard } from './RoleGuard'
 import { useAuthStore } from '@/stores/auth.store'
+import { getDashboardRoute } from './utils'
 
-// Root redirect component
-function RootRedirect() {
-  const { isAuthenticated, user } = useAuthStore()
-  if (!isAuthenticated || !user) return <Navigate to="/login" replace />
-  const destinations = {
-    superadmin: '/superadmin/users',
-    admin: '/admin/dashboard',
-    member: '/member/dashboard',
-  } as const
-  return <Navigate to={destinations[user.role]} replace />
+const LoginPage = lazy(() => import('@/features/auth/pages/LoginPage').then((m) => ({ default: m.LoginPage })))
+const ChangePasswordPage = lazy(() => import('@/features/auth/pages/ChangePasswordPage').then((m) => ({ default: m.ChangePasswordPage })))
+const ForgotPasswordPage = lazy(() => import('@/features/auth/pages/ForgotPasswordPage').then((m) => ({ default: m.ForgotPasswordPage })))
+
+function AuthPageWrapper({ children }: { children: React.ReactNode }) {
+  return <Suspense fallback={null}>{children}</Suspense>
 }
 
-// Placeholder factories
+function RootRedirect() {
+  const { user } = useAuthStore()
+  if (!user) return <Navigate to="/login" replace />
+  return <Navigate to={getDashboardRoute(user.role)} replace />
+}
+
 function placeholder(name: string) {
   return function Page() {
     return <div>{name}</div>
@@ -29,21 +32,19 @@ export const router = createBrowserRouter([
   },
   {
     path: '/login',
-    element: placeholder('Login')(),
+    element: <AuthPageWrapper><LoginPage /></AuthPageWrapper>,
   },
   {
     path: '/login/change-password',
-    element: placeholder('Change Password')(),
+    element: <AuthPageWrapper><ChangePasswordPage /></AuthPageWrapper>,
   },
   {
     path: '/login/forgot-password',
-    element: placeholder('Forgot Password')(),
+    element: <AuthPageWrapper><ForgotPasswordPage /></AuthPageWrapper>,
   },
   {
     path: '/superadmin',
-    element: (
-      <ProtectedRoute />
-    ),
+    element: <ProtectedRoute />,
     children: [
       {
         element: <RoleGuard allowedRoles={['superadmin']} />,

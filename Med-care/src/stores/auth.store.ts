@@ -6,6 +6,8 @@ import type { User } from '@/types'
 interface AuthState {
   user: User | null
   isAuthenticated: boolean
+  setUser: (user: User) => void
+  clearUser: () => void
   login: (user: User) => void
   logout: () => void
   updatePassword: (newPassword: string) => void
@@ -16,6 +18,12 @@ export const useAuthStore = create<AuthState>()(
     (set, get) => ({
       user: null,
       isAuthenticated: false,
+      setUser(user) {
+        set({ user, isAuthenticated: true })
+      },
+      clearUser() {
+        set({ user: null, isAuthenticated: false })
+      },
       login(user) {
         set({ user, isAuthenticated: true })
       },

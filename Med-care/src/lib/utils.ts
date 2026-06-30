@@ -27,7 +27,7 @@ export function formatDateTime(iso: string): string {
 export function validateFile(file: File): { valid: boolean; error?: string } {
   const { allowedMimeTypes, maxPdfSizeBytes, maxImageSizeBytes } = APP_CONFIG.upload
 
-  if (!allowedMimeTypes.includes(file.type)) {
+  if (!(allowedMimeTypes as readonly string[]).includes(file.type)) {
     return { valid: false, error: 'file_type_not_allowed' }
   }
 

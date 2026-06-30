@@ -1,5 +1,61 @@
 {
-  "auth": {},
+  "auth": {
+    "login": {
+      "title": "Sign in",
+      "subtitle": "Enter your credentials to continue",
+      "emailLabel": "Email address",
+      "passwordLabel": "Password",
+      "submit": "Sign in",
+      "forgotPassword": "Forgot your password?"
+    },
+    "changePassword": {
+      "title": "Change password",
+      "subtitle": "Set your new access password",
+      "currentPasswordLabel": "Current password",
+      "newPasswordLabel": "New password",
+      "confirmPasswordLabel": "Confirm password",
+      "submit": "Change password",
+      "rules": {
+        "minLength": "At least 8 characters",
+        "uppercase": "One uppercase letter",
+        "lowercase": "One lowercase letter",
+        "number": "One number",
+        "special": "One special character"
+      }
+    },
+    "forgotPassword": {
+      "title": "Reset password",
+      "subtitle": "We will send instructions to your email",
+      "emailLabel": "Email address",
+      "submit": "Send instructions",
+      "backToLogin": "Back to sign in",
+      "sentState": "We have sent recovery instructions. Check your inbox.",
+      "resend": "Resend instructions"
+    },
+    "errors": {
+      "invalidCredentials": "Invalid credentials. Please check your email and password.",
+      "accountDisabled": "This account is disabled. Contact your administrator.",
+      "invalidCurrentPassword": "Current password is incorrect.",
+      "sameAsCurrent": "New password must be different from the current one."
+    },
+    "logout": "Sign out",
+    "devRoleSwitcher": {
+      "label": "Select user (Dev)",
+      "placeholder": "Select user..."
+    }
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Enter a valid email address",
+    "password": {
+      "minLength": "At least 8 characters",
+      "uppercase": "At least one uppercase letter",
+      "lowercase": "At least one lowercase letter",
+      "number": "At least one number",
+      "special": "At least one special character",
+      "mustMatch": "Passwords do not match"
+    }
+  },
   "common": {},
   "users": {},
   "groups": {},
