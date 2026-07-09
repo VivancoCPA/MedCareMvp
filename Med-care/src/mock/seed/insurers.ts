@@ -5,7 +5,7 @@ export let mockInsurers: Insurer[] = [
   {
     id: SEED_IDS.insurers.rimac,
     name: 'Rímac',
-    phone: null,
+    emergencyPhone: null,
     website: null,
     originGroupId: null,
     isActive: true,
@@ -16,7 +16,7 @@ export let mockInsurers: Insurer[] = [
   {
     id: SEED_IDS.insurers.pacifico,
     name: 'Pacífico',
-    phone: null,
+    emergencyPhone: null,
     website: null,
     originGroupId: null,
     isActive: true,

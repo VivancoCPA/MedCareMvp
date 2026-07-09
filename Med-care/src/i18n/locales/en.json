@@ -47,6 +47,9 @@
   "validation": {
     "required": "This field is required",
     "email": "Enter a valid email address",
+    "minLength": "Must be at least {{min}} characters",
+    "invalidUrl": "Enter a valid URL",
+    "atLeastOne": "You must fill in at least one field",
     "password": {
       "minLength": "At least 8 characters",
       "uppercase": "At least one uppercase letter",
@@ -56,6 +59,43 @@
       "mustMatch": "Passwords do not match"
     }
   },
+  "nav": {
+    "superadmin": {
+      "users": "Users",
+      "doctors": "Doctors",
+      "specialties": "Specialties",
+      "medicalCenters": "Medical centers",
+      "insurers": "Insurers",
+      "pharmacies": "Pharmacies"
+    },
+    "admin": {
+      "dashboard": "Dashboard",
+      "group": "My group",
+      "repositories": "Group repositories",
+      "settings": "Settings"
+    },
+    "member": {
+      "dashboard": "Dashboard",
+      "healthProfile": "My health profile",
+      "appointments": "My appointments",
+      "exams": "My exams",
+      "notes": "My notes",
+      "settings": "Settings"
+    }
+  },
+  "layout": {
+    "superadminPanel": "Admin panel",
+    "noGroup": "No group",
+    "toggleSidebar": "Open menu",
+    "userMenu": {
+      "myAccount": "My account",
+      "logout": "Sign out"
+    }
+  },
+  "emptyState": {
+    "defaultTitle": "No data to show",
+    "defaultDescription": "There is no information available in this section yet."
+  },
   "common": {},
   "users": {},
   "groups": {},
@@ -63,6 +103,138 @@
   "exams": {},
   "notes": {},
   "dashboard": {},
-  "repositories": {},
+  "repositories": {
+    "common": {
+      "statusActive": "Active",
+      "statusInactive": "Inactive",
+      "statusAll": "All",
+      "statusFilterLabel": "Status",
+      "searchPlaceholder": "Search by name...",
+      "actionsColumn": "Actions",
+      "edit": "Edit",
+      "deactivate": "Deactivate",
+      "reactivate": "Reactivate",
+      "cancel": "Cancel",
+      "save": "Save",
+      "confirm": "Confirm",
+      "originSuperAdmin": "SuperAdmin",
+      "originPropagated": "Propagated",
+      "confirmDeactivateTitle": "Deactivate record",
+      "toastCreateSuccess": "{{entity}} created successfully",
+      "toastUpdateSuccess": "{{entity}} updated successfully",
+      "toastDeactivateSuccess": "{{entity}} deactivated successfully",
+      "toastReactivateSuccess": "{{entity}} reactivated successfully",
+      "toastError": "Something went wrong. Please try again.",
+      "emptyStateTitle": "No records found",
+      "emptyStateDescription": "Try adjusting the search or status filter."
+    },
+    "doctors": {
+      "title": "Doctors",
+      "entityName": "Doctor",
+      "createButton": "New doctor",
+      "createModalTitle": "New doctor",
+      "editModalTitle": "Edit doctor",
+      "confirmDeactivateMessage": "Are you sure you want to deactivate this doctor?",
+      "columns": {
+        "name": "Name",
+        "specialty": "Specialty",
+        "phone": "Phone",
+        "origin": "Origin",
+        "status": "Status"
+      },
+      "fields": {
+        "firstName": "First name",
+        "lastName": "Last name",
+        "specialty": "Specialty",
+        "specialtyPlaceholder": "Select a specialty",
+        "phone": "Phone",
+        "email": "Email"
+      }
+    },
+    "specialties": {
+      "title": "Specialties",
+      "entityName": "Specialty",
+      "createButton": "New specialty",
+      "createModalTitle": "New specialty",
+      "editModalTitle": "Edit specialty",
+      "confirmDeactivateMessage": "Are you sure you want to deactivate this specialty?",
+      "columns": {
+        "name": "Name",
+        "description": "Description",
+        "status": "Status"
+      },
+      "fields": {
+        "name": "Name",
+        "description": "Description"
+      }
+    },
+    "medicalCenters": {
+      "title": "Medical centers",
+      "entityName": "Medical center",
+      "createButton": "New medical center",
+      "createModalTitle": "New medical center",
+      "editModalTitle": "Edit medical center",
+      "confirmDeactivateMessage": "Are you sure you want to deactivate this medical center?",
+      "columns": {
+        "name": "Name",
+        "type": "Type",
+        "address": "Address",
+        "phone": "Phone",
+        "status": "Status"
+      },
+      "fields": {
+        "name": "Name",
+        "type": "Type",
+        "typePlaceholder": "Select a type",
+        "address": "Address",
+        "phone": "Phone"
+      },
+      "types": {
+        "clinic": "Clinic",
+        "hospital": "Hospital",
+        "office": "Office",
+        "laboratory": "Laboratory",
+        "other": "Other"
+      }
+    },
+    "insurers": {
+      "title": "Insurers",
+      "entityName": "Insurer",
+      "createButton": "New insurer",
+      "createModalTitle": "New insurer",
+      "editModalTitle": "Edit insurer",
+      "confirmDeactivateMessage": "Are you sure you want to deactivate this insurer?",
+      "columns": {
+        "name": "Name",
+        "emergencyPhone": "Emergency phone",
+        "website": "Website",
+        "status": "Status"
+      },
+      "fields": {
+        "name": "Name",
+        "emergencyPhone": "Emergency phone",
+        "website": "Website"
+      }
+    },
+    "pharmacies": {
+      "title": "Pharmacies",
+      "entityName": "Pharmacy",
+      "createButton": "New pharmacy",
+      "createModalTitle": "New pharmacy",
+      "editModalTitle": "Edit pharmacy",
+      "confirmDeactivateMessage": "Are you sure you want to deactivate this pharmacy?",
+      "columns": {
+        "name": "Name",
+        "address": "Address",
+        "phone": "Phone",
+        "status": "Status"
+      },
+      "fields": {
+        "name": "Name",
+        "address": "Address",
+        "phone": "Phone"
+      }
+    }
+  },
   "settings": {}
 }

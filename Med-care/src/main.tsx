@@ -7,6 +7,7 @@ import { RouterProvider } from 'react-router-dom'
 import { queryClient } from '@/lib/queryClient'
 import { router } from '@/router'
 import { useThemeStore } from '@/stores/theme.store'
+import { Toaster } from '@/components/ui/toaster'
 
 // Apply stored theme before first render
 const storedTheme = useThemeStore.getState().theme
@@ -20,6 +21,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <Toaster />
     </QueryClientProvider>
   </StrictMode>
 )

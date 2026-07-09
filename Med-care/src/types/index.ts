@@ -86,6 +86,7 @@ export interface NonAccountMember {
 export interface Specialty {
   id: string
   name: string
+  description: string | null
   isActive: boolean
   createdAt: string
   updatedAt: string
@@ -123,7 +124,7 @@ export interface MedicalCenter {
 export interface Insurer {
   id: string
   name: string
-  phone: string | null
+  emergencyPhone: string | null
   website: string | null
   originGroupId: string | null
   isActive: boolean

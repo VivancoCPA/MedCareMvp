@@ -47,6 +47,9 @@
   "validation": {
     "required": "Este campo es requerido",
     "email": "Ingresa un correo electrónico válido",
+    "minLength": "Debe tener al menos {{min}} caracteres",
+    "invalidUrl": "Ingresa una URL válida",
+    "atLeastOne": "Debes completar al menos un campo",
     "password": {
       "minLength": "Mínimo 8 caracteres",
       "uppercase": "Al menos una letra mayúscula",
@@ -56,6 +59,43 @@
       "mustMatch": "Las contraseñas no coinciden"
     }
   },
+  "nav": {
+    "superadmin": {
+      "users": "Usuarios",
+      "doctors": "Médicos",
+      "specialties": "Especialidades",
+      "medicalCenters": "Centros médicos",
+      "insurers": "Aseguradoras",
+      "pharmacies": "Farmacias"
+    },
+    "admin": {
+      "dashboard": "Dashboard",
+      "group": "Mi grupo",
+      "repositories": "Repositorios del grupo",
+      "settings": "Configuración"
+    },
+    "member": {
+      "dashboard": "Dashboard",
+      "healthProfile": "Mi perfil de salud",
+      "appointments": "Mis citas",
+      "exams": "Mis exámenes",
+      "notes": "Mis notas",
+      "settings": "Configuración"
+    }
+  },
+  "layout": {
+    "superadminPanel": "Panel de administración",
+    "noGroup": "Sin grupo",
+    "toggleSidebar": "Abrir menú",
+    "userMenu": {
+      "myAccount": "Mi cuenta",
+      "logout": "Cerrar sesión"
+    }
+  },
+  "emptyState": {
+    "defaultTitle": "No hay datos para mostrar",
+    "defaultDescription": "Todavía no hay información disponible en esta sección."
+  },
   "common": {},
   "users": {},
   "groups": {},
@@ -63,6 +103,138 @@
   "exams": {},
   "notes": {},
   "dashboard": {},
-  "repositories": {},
+  "repositories": {
+    "common": {
+      "statusActive": "Activo",
+      "statusInactive": "Inactivo",
+      "statusAll": "Todos",
+      "statusFilterLabel": "Estado",
+      "searchPlaceholder": "Buscar por nombre...",
+      "actionsColumn": "Acciones",
+      "edit": "Editar",
+      "deactivate": "Desactivar",
+      "reactivate": "Reactivar",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "confirm": "Confirmar",
+      "originSuperAdmin": "SuperAdmin",
+      "originPropagated": "Propagado",
+      "confirmDeactivateTitle": "Desactivar registro",
+      "toastCreateSuccess": "Registro de {{entity}} creado correctamente",
+      "toastUpdateSuccess": "Registro de {{entity}} actualizado correctamente",
+      "toastDeactivateSuccess": "Registro de {{entity}} desactivado correctamente",
+      "toastReactivateSuccess": "Registro de {{entity}} reactivado correctamente",
+      "toastError": "Ocurrió un error. Inténtalo nuevamente.",
+      "emptyStateTitle": "No se encontraron registros",
+      "emptyStateDescription": "Intenta ajustar la búsqueda o el filtro de estado."
+    },
+    "doctors": {
+      "title": "Médicos",
+      "entityName": "Médico",
+      "createButton": "Nuevo médico",
+      "createModalTitle": "Nuevo médico",
+      "editModalTitle": "Editar médico",
+      "confirmDeactivateMessage": "¿Estás seguro de que deseas desactivar a este médico?",
+      "columns": {
+        "name": "Nombre",
+        "specialty": "Especialidad",
+        "phone": "Teléfono",
+        "origin": "Origen",
+        "status": "Estado"
+      },
+      "fields": {
+        "firstName": "Nombre",
+        "lastName": "Apellido",
+        "specialty": "Especialidad",
+        "specialtyPlaceholder": "Selecciona una especialidad",
+        "phone": "Teléfono",
+        "email": "Correo electrónico"
+      }
+    },
+    "specialties": {
+      "title": "Especialidades",
+      "entityName": "Especialidad",
+      "createButton": "Nueva especialidad",
+      "createModalTitle": "Nueva especialidad",
+      "editModalTitle": "Editar especialidad",
+      "confirmDeactivateMessage": "¿Estás seguro de que deseas desactivar esta especialidad?",
+      "columns": {
+        "name": "Nombre",
+        "description": "Descripción",
+        "status": "Estado"
+      },
+      "fields": {
+        "name": "Nombre",
+        "description": "Descripción"
+      }
+    },
+    "medicalCenters": {
+      "title": "Centros médicos",
+      "entityName": "Centro médico",
+      "createButton": "Nuevo centro médico",
+      "createModalTitle": "Nuevo centro médico",
+      "editModalTitle": "Editar centro médico",
+      "confirmDeactivateMessage": "¿Estás seguro de que deseas desactivar este centro médico?",
+      "columns": {
+        "name": "Nombre",
+        "type": "Tipo",
+        "address": "Dirección",
+        "phone": "Teléfono",
+        "status": "Estado"
+      },
+      "fields": {
+        "name": "Nombre",
+        "type": "Tipo",
+        "typePlaceholder": "Selecciona un tipo",
+        "address": "Dirección",
+        "phone": "Teléfono"
+      },
+      "types": {
+        "clinic": "Clínica",
+        "hospital": "Hospital",
+        "office": "Consultorio",
+        "laboratory": "Laboratorio",
+        "other": "Otro"
+      }
+    },
+    "insurers": {
+      "title": "Aseguradoras",
+      "entityName": "Aseguradora",
+      "createButton": "Nueva aseguradora",
+      "createModalTitle": "Nueva aseguradora",
+      "editModalTitle": "Editar aseguradora",
+      "confirmDeactivateMessage": "¿Estás seguro de que deseas desactivar esta aseguradora?",
+      "columns": {
+        "name": "Nombre",
+        "emergencyPhone": "Teléfono de emergencia",
+        "website": "Sitio web",
+        "status": "Estado"
+      },
+      "fields": {
+        "name": "Nombre",
+        "emergencyPhone": "Teléfono de emergencia",
+        "website": "Sitio web"
+      }
+    },
+    "pharmacies": {
+      "title": "Farmacias",
+      "entityName": "Farmacia",
+      "createButton": "Nueva farmacia",
+      "createModalTitle": "Nueva farmacia",
+      "editModalTitle": "Editar farmacia",
+      "confirmDeactivateMessage": "¿Estás seguro de que deseas desactivar esta farmacia?",
+      "columns": {
+        "name": "Nombre",
+        "address": "Dirección",
+        "phone": "Teléfono",
+        "status": "Estado"
+      },
+      "fields": {
+        "name": "Nombre",
+        "address": "Dirección",
+        "phone": "Teléfono"
+      }
+    }
+  },
   "settings": {}
 }

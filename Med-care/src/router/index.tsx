@@ -4,13 +4,40 @@ import { ProtectedRoute } from './ProtectedRoute'
 import { RoleGuard } from './RoleGuard'
 import { useAuthStore } from '@/stores/auth.store'
 import { getDashboardRoute } from './utils'
+import type { UserRole } from '@/types'
 
 const LoginPage = lazy(() => import('@/features/auth/pages/LoginPage').then((m) => ({ default: m.LoginPage })))
 const ChangePasswordPage = lazy(() => import('@/features/auth/pages/ChangePasswordPage').then((m) => ({ default: m.ChangePasswordPage })))
 const ForgotPasswordPage = lazy(() => import('@/features/auth/pages/ForgotPasswordPage').then((m) => ({ default: m.ForgotPasswordPage })))
+const Shell = lazy(() => import('@/components/layout/Shell').then((m) => ({ default: m.Shell })))
+const DoctorListPage = lazy(() =>
+  import('@/features/repositories-universal/pages/DoctorListPage').then((m) => ({ default: m.DoctorListPage }))
+)
+const SpecialtyListPage = lazy(() =>
+  import('@/features/repositories-universal/pages/SpecialtyListPage').then((m) => ({ default: m.SpecialtyListPage }))
+)
+const MedicalCenterListPage = lazy(() =>
+  import('@/features/repositories-universal/pages/MedicalCenterListPage').then((m) => ({
+    default: m.MedicalCenterListPage,
+  }))
+)
+const InsurerListPage = lazy(() =>
+  import('@/features/repositories-universal/pages/InsurerListPage').then((m) => ({ default: m.InsurerListPage }))
+)
+const PharmacyListPage = lazy(() =>
+  import('@/features/repositories-universal/pages/PharmacyListPage').then((m) => ({ default: m.PharmacyListPage }))
+)
 
 function AuthPageWrapper({ children }: { children: React.ReactNode }) {
   return <Suspense fallback={null}>{children}</Suspense>
+}
+
+function ShellLayout({ role }: { role: UserRole }) {
+  return (
+    <Suspense fallback={null}>
+      <Shell role={role} />
+    </Suspense>
+  )
 }
 
 function RootRedirect() {
@@ -49,12 +76,17 @@ export const router = createBrowserRouter([
       {
         element: <RoleGuard allowedRoles={['superadmin']} />,
         children: [
-          { path: 'users', element: placeholder('Superadmin / Users')() },
-          { path: 'doctors', element: placeholder('Superadmin / Doctors')() },
-          { path: 'specialties', element: placeholder('Superadmin / Specialties')() },
-          { path: 'medical-centers', element: placeholder('Superadmin / Medical Centers')() },
-          { path: 'insurers', element: placeholder('Superadmin / Insurers')() },
-          { path: 'pharmacies', element: placeholder('Superadmin / Pharmacies')() },
+          {
+            element: <ShellLayout role="superadmin" />,
+            children: [
+              { path: 'users', element: placeholder('Superadmin / Users')() },
+              { path: 'doctors', element: <DoctorListPage /> },
+              { path: 'specialties', element: <SpecialtyListPage /> },
+              { path: 'medical-centers', element: <MedicalCenterListPage /> },
+              { path: 'insurers', element: <InsurerListPage /> },
+              { path: 'pharmacies', element: <PharmacyListPage /> },
+            ],
+          },
         ],
       },
     ],
@@ -66,22 +98,27 @@ export const router = createBrowserRouter([
       {
         element: <RoleGuard allowedRoles={['admin']} />,
         children: [
-          { path: 'dashboard', element: placeholder('Admin / Dashboard')() },
-          { path: 'group', element: placeholder('Admin / Group')() },
-          { path: 'group/onboarding', element: placeholder('Admin / Group Onboarding')() },
           {
-            path: 'members/:id',
-            element: <Outlet />,
+            element: <ShellLayout role="admin" />,
             children: [
-              { index: true, element: placeholder('Admin / Member')() },
-              { path: 'health-profile', element: placeholder('Admin / Member / Health Profile')() },
-              { path: 'appointments', element: placeholder('Admin / Member / Appointments')() },
-              { path: 'exams', element: placeholder('Admin / Member / Exams')() },
-              { path: 'notes', element: placeholder('Admin / Member / Notes')() },
+              { path: 'dashboard', element: placeholder('Admin / Dashboard')() },
+              { path: 'group', element: placeholder('Admin / Group')() },
+              { path: 'group/onboarding', element: placeholder('Admin / Group Onboarding')() },
+              {
+                path: 'members/:id',
+                element: <Outlet />,
+                children: [
+                  { index: true, element: placeholder('Admin / Member')() },
+                  { path: 'health-profile', element: placeholder('Admin / Member / Health Profile')() },
+                  { path: 'appointments', element: placeholder('Admin / Member / Appointments')() },
+                  { path: 'exams', element: placeholder('Admin / Member / Exams')() },
+                  { path: 'notes', element: placeholder('Admin / Member / Notes')() },
+                ],
+              },
+              { path: 'repositories', element: placeholder('Admin / Repositories')() },
+              { path: 'settings', element: placeholder('Admin / Settings')() },
             ],
           },
-          { path: 'repositories', element: placeholder('Admin / Repositories')() },
-          { path: 'settings', element: placeholder('Admin / Settings')() },
         ],
       },
     ],
@@ -93,28 +130,33 @@ export const router = createBrowserRouter([
       {
         element: <RoleGuard allowedRoles={['member']} />,
         children: [
-          { path: 'dashboard', element: placeholder('Member / Dashboard')() },
-          { path: 'profile', element: placeholder('Member / Profile')() },
           {
-            path: 'appointments',
-            element: <Outlet />,
+            element: <ShellLayout role="member" />,
             children: [
-              { index: true, element: placeholder('Member / Appointments')() },
-              { path: 'new', element: placeholder('Member / New Appointment')() },
-              { path: ':id', element: placeholder('Member / Appointment Detail')() },
+              { path: 'dashboard', element: placeholder('Member / Dashboard')() },
+              { path: 'profile', element: placeholder('Member / Profile')() },
+              {
+                path: 'appointments',
+                element: <Outlet />,
+                children: [
+                  { index: true, element: placeholder('Member / Appointments')() },
+                  { path: 'new', element: placeholder('Member / New Appointment')() },
+                  { path: ':id', element: placeholder('Member / Appointment Detail')() },
+                ],
+              },
+              {
+                path: 'exams',
+                element: <Outlet />,
+                children: [
+                  { index: true, element: placeholder('Member / Exams')() },
+                  { path: 'new', element: placeholder('Member / New Exam')() },
+                  { path: ':id', element: placeholder('Member / Exam Detail')() },
+                ],
+              },
+              { path: 'notes', element: placeholder('Member / Notes')() },
+              { path: 'settings', element: placeholder('Member / Settings')() },
             ],
           },
-          {
-            path: 'exams',
-            element: <Outlet />,
-            children: [
-              { index: true, element: placeholder('Member / Exams')() },
-              { path: 'new', element: placeholder('Member / New Exam')() },
-              { path: ':id', element: placeholder('Member / Exam Detail')() },
-            ],
-          },
-          { path: 'notes', element: placeholder('Member / Notes')() },
-          { path: 'settings', element: placeholder('Member / Settings')() },
         ],
       },
     ],
