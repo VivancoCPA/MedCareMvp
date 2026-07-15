@@ -13,10 +13,10 @@ export const APP_CONFIG = {
   },
   mock: {
     enabled: true,
-    simulatedDelayMs: 300,
+    simulatedDelayMs: 400,
   },
   pagination: {
-    defaultPageSize: 20,
+    defaultPageSize: 10,
     pageSizeOptions: [10, 20, 50],
   },
   dashboard: {

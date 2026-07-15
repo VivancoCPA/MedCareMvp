@@ -18,6 +18,8 @@ export function SpecialtyListPage() {
   const [editingSpecialty, setEditingSpecialty] = useState<Specialty | null>(null)
   const [confirmTarget, setConfirmTarget] = useState<Specialty | null>(null)
   const [isDeactivating, setIsDeactivating] = useState(false)
+  const [reactivateTarget, setReactivateTarget] = useState<Specialty | null>(null)
+  const [isReactivating, setIsReactivating] = useState(false)
 
   function openCreate() {
     setEditingSpecialty(null)
@@ -49,6 +51,17 @@ export function SpecialtyListPage() {
     }
   }
 
+  async function handleConfirmReactivate() {
+    if (!reactivateTarget) return
+    setIsReactivating(true)
+    try {
+      await reactivateSpecialty(reactivateTarget.id)
+      setReactivateTarget(null)
+    } finally {
+      setIsReactivating(false)
+    }
+  }
+
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
@@ -64,7 +77,7 @@ export function SpecialtyListPage() {
         isLoading={isLoading}
         onEdit={openEdit}
         onDeactivate={setConfirmTarget}
-        onReactivate={(specialty) => reactivateSpecialty(specialty.id)}
+        onReactivate={setReactivateTarget}
       />
 
       <SpecialtyFormModal
@@ -81,6 +94,15 @@ export function SpecialtyListPage() {
         onConfirm={handleConfirmDeactivate}
         onCancel={() => setConfirmTarget(null)}
         isLoading={isDeactivating}
+      />
+
+      <ConfirmModal
+        open={!!reactivateTarget}
+        title={t('repositories.common.confirmReactivateTitle')}
+        message={t('repositories.specialties.confirmReactivateMessage')}
+        onConfirm={handleConfirmReactivate}
+        onCancel={() => setReactivateTarget(null)}
+        isLoading={isReactivating}
       />
     </div>
   )

@@ -87,6 +87,10 @@
     "superadminPanel": "Admin panel",
     "noGroup": "No group",
     "toggleSidebar": "Open menu",
+    "collapseSidebar": "Collapse menu",
+    "expandSidebar": "Expand menu",
+    "switchToDark": "Switch to dark mode",
+    "switchToLight": "Switch to light mode",
     "userMenu": {
       "myAccount": "My account",
       "logout": "Sign out"
@@ -97,8 +101,207 @@
     "defaultDescription": "There is no information available in this section yet."
   },
   "common": {},
-  "users": {},
-  "groups": {},
+  "users": {
+    "title": "Users",
+    "createButton": "New user",
+    "createModalTitle": "New user",
+    "editModalTitle": "Edit user",
+    "searchPlaceholder": "Search by name or email...",
+    "noGroup": "No group",
+    "groupMembersTitle": "My group's members",
+    "columns": {
+      "user": "User",
+      "role": "Role",
+      "group": "Group",
+      "origin": "Origin",
+      "status": "Status",
+      "createdAt": "Created",
+      "phone": "Phone",
+      "birthDate": "Date of birth"
+    },
+    "fields": {
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email address",
+      "role": "Role",
+      "birthDate": "Date of birth",
+      "gender": "Gender",
+      "phone": "Phone"
+    },
+    "fieldAvatar": "Profile photo",
+    "avatarAlt": "Profile photo",
+    "removeAvatar": "Remove photo",
+    "roles": {
+      "superadmin": "SuperAdmin",
+      "admin": "Admin",
+      "member": "Member"
+    },
+    "genders": {
+      "male": "Male",
+      "female": "Female",
+      "other": "Other",
+      "unspecified": "Unspecified"
+    },
+    "adminNoGroupWarningTitle": "This Admin will have no group",
+    "adminNoGroupWarningDescription": "Creating a user with the Admin role does not assign any group. They will need to create one after signing in.",
+    "confirmDeactivateTitle": "Deactivate user",
+    "confirmDeactivateMessage": "Are you sure you want to deactivate {{name}}?",
+    "confirmReactivateTitle": "Reactivate user",
+    "confirmReactivateMessage": "Are you sure you want to reactivate {{name}}?",
+    "toastCreateSuccess": "User created successfully",
+    "toastUpdateSuccess": "User updated successfully",
+    "toastDeactivateSuccess": "User deactivated successfully",
+    "toastReactivateSuccess": "User reactivated successfully",
+    "toastPasswordSent": "The temporary password was sent to the user's email (simulated)",
+    "toastPdfSent": "A PDF summary was sent to the user (simulated)",
+    "toastError": "An error occurred. Please try again.",
+    "errorEmailTaken": "This email address is already in use",
+    "tooltips": {
+      "cannotDeactivateSelf": "You cannot deactivate your own account",
+      "emailRoleDisabled": "Email and role can only be edited by a SuperAdmin"
+    },
+    "emptyStateTitle": "No users found",
+    "emptyStateDescription": "Try adjusting the search or filters."
+  },
+  "groups": {
+    "header": {
+      "editName": "Edit name"
+    },
+    "myGroups": {
+      "title": "My groups",
+      "createAnother": "Create another group"
+    },
+    "empty": {
+      "title": "You don't have a family group yet",
+      "description": "Create a group to start managing your members and their health information.",
+      "cta": "Create family group"
+    },
+    "createModal": {
+      "title": "Create family group",
+      "nameLabel": "Group name",
+      "avatarLabel": "Group avatar",
+      "avatarAlt": "Group avatar",
+      "removeAvatar": "Remove avatar",
+      "confirm": "Create group"
+    },
+    "status": {
+      "deactivateButton": "Deactivate group",
+      "reactivateButton": "Reactivate group",
+      "confirmDeactivateTitle": "Deactivate group",
+      "confirmDeactivateMessage": "Are you sure you want to deactivate the group \"{{name}}\"? It will stop appearing as your active group, but its members' data will be preserved.",
+      "confirmReactivateTitle": "Reactivate group",
+      "confirmReactivateMessage": "Are you sure you want to reactivate the group \"{{name}}\"?",
+      "toastDeactivateSuccess": "Group deactivated successfully",
+      "toastReactivateSuccess": "Group reactivated successfully"
+    },
+    "editModal": {
+      "title": "Edit group",
+      "nameLabel": "Group name",
+      "avatarLabel": "Group avatar",
+      "avatarAlt": "Group avatar",
+      "removeAvatar": "Remove avatar",
+      "membersTitle": "Group members",
+      "toastSuccess": "Group updated successfully"
+    },
+    "editNonAccountMember": {
+      "title": "Edit member",
+      "submit": "Save changes",
+      "toastSuccess": "Member updated successfully"
+    },
+    "memberTable": {
+      "emptyTitle": "No members in this group",
+      "emptyDescription": "Add a member with or without an account to get started.",
+      "columns": {
+        "name": "Name",
+        "type": "Type",
+        "status": "Status"
+      },
+      "adminBadge": "Admin",
+      "remove": "Remove from group",
+      "type": {
+        "account": "With account",
+        "human": "Person",
+        "pet": "Pet",
+        "other": "Other"
+      }
+    },
+    "removeMember": {
+      "blockedTitle": "The admin cannot be removed",
+      "blockedSelfAdmin": "The group admin cannot remove themselves. Transfer the admin role first.",
+      "confirmTitle": "Remove from group",
+      "confirmMessage": "Are you sure you want to remove {{name}} from the group?"
+    },
+    "addMember": {
+      "button": "Add member",
+      "modalTitle": "Add member",
+      "tabs": {
+        "account": "With account",
+        "nonAccount": "Without account"
+      },
+      "account": {
+        "emailLabel": "Email address",
+        "submit": "Add",
+        "alreadyInGroup": "This user is already a member of this group",
+        "alreadyInAnotherGroup": "This user already belongs to another family group and cannot be added.",
+        "createPrompt": "No user was found with that email. Fill in the details to create a new account.",
+        "createSubmit": "Create account and add",
+        "selectLabel": "Select a user",
+        "selectPlaceholder": "Select an available user...",
+        "searchPlaceholder": "Search by name or email...",
+        "noResults": "No users found.",
+        "emptyCandidatesTitle": "No users available",
+        "emptyCandidatesDescription": "There are no users available to add to this group right now."
+      },
+      "nonAccount": {
+        "avatarLabel": "Photo",
+        "avatarAlt": "Member photo",
+        "removeAvatar": "Remove photo",
+        "fields": {
+          "firstName": "First name",
+          "lastName": "Last name",
+          "memberType": "Member type",
+          "birthDate": "Date of birth",
+          "gender": "Gender",
+          "breed": "Breed",
+          "bloodType": "Blood type"
+        },
+        "memberTypes": {
+          "human": "Person",
+          "pet": "Pet",
+          "other": "Other"
+        },
+        "bloodTypeNone": "Unspecified",
+        "bloodTypeUnknown": "Unknown",
+        "submit": "Add member"
+      }
+    },
+    "onboarding": {
+      "title": "Set up your group",
+      "skip": "Skip for now",
+      "continue": "Continue",
+      "steps": {
+        "doctors": "Doctors",
+        "centersPharmacies": "Centers and pharmacies",
+        "members": "Members"
+      },
+      "doctors": {
+        "title": "Add your trusted doctors",
+        "description": "Import a doctor from the global catalog or create a new one for this group."
+      },
+      "centersPharmacies": {
+        "title": "Add medical centers and pharmacies",
+        "description": "Import a medical center or pharmacy from the global catalog, or create new ones for this group."
+      },
+      "members": {
+        "title": "Add members to your group",
+        "description": "Add people with or without an account to your family group."
+      }
+    },
+    "toastCreateSuccess": "Group created successfully",
+    "toastAddMemberSuccess": "Member added successfully",
+    "toastRemoveMemberSuccess": "Member removed from the group",
+    "toastError": "An error occurred. Please try again."
+  },
   "appointments": {},
   "exams": {},
   "notes": {},
@@ -120,6 +323,7 @@
       "originSuperAdmin": "SuperAdmin",
       "originPropagated": "Propagated",
       "confirmDeactivateTitle": "Deactivate record",
+      "confirmReactivateTitle": "Reactivate record",
       "toastCreateSuccess": "{{entity}} created successfully",
       "toastUpdateSuccess": "{{entity}} updated successfully",
       "toastDeactivateSuccess": "{{entity}} deactivated successfully",
@@ -135,6 +339,10 @@
       "createModalTitle": "New doctor",
       "editModalTitle": "Edit doctor",
       "confirmDeactivateMessage": "Are you sure you want to deactivate this doctor?",
+      "confirmReactivateMessage": "Are you sure you want to reactivate this doctor?",
+      "fieldAvatar": "Photo",
+      "avatarAlt": "Doctor photo",
+      "removeAvatar": "Remove photo",
       "columns": {
         "name": "Name",
         "specialty": "Specialty",
@@ -158,6 +366,7 @@
       "createModalTitle": "New specialty",
       "editModalTitle": "Edit specialty",
       "confirmDeactivateMessage": "Are you sure you want to deactivate this specialty?",
+      "confirmReactivateMessage": "Are you sure you want to reactivate this specialty?",
       "columns": {
         "name": "Name",
         "description": "Description",
@@ -175,6 +384,7 @@
       "createModalTitle": "New medical center",
       "editModalTitle": "Edit medical center",
       "confirmDeactivateMessage": "Are you sure you want to deactivate this medical center?",
+      "confirmReactivateMessage": "Are you sure you want to reactivate this medical center?",
       "columns": {
         "name": "Name",
         "type": "Type",
@@ -204,6 +414,10 @@
       "createModalTitle": "New insurer",
       "editModalTitle": "Edit insurer",
       "confirmDeactivateMessage": "Are you sure you want to deactivate this insurer?",
+      "confirmReactivateMessage": "Are you sure you want to reactivate this insurer?",
+      "fieldLogo": "Logo",
+      "logoAlt": "Insurer logo",
+      "removeLogo": "Remove logo",
       "columns": {
         "name": "Name",
         "emergencyPhone": "Emergency phone",
@@ -223,6 +437,7 @@
       "createModalTitle": "New pharmacy",
       "editModalTitle": "Edit pharmacy",
       "confirmDeactivateMessage": "Are you sure you want to deactivate this pharmacy?",
+      "confirmReactivateMessage": "Are you sure you want to reactivate this pharmacy?",
       "columns": {
         "name": "Name",
         "address": "Address",
@@ -236,5 +451,57 @@
       }
     }
   },
-  "settings": {}
+  "groupRepositories": {
+    "common": {
+      "tabs": {
+        "doctor": "Doctors",
+        "medicalCenter": "Medical centers",
+        "pharmacy": "Pharmacies",
+        "insurer": "Insurers"
+      },
+      "groupSelectorLabel": "Group",
+      "noGroupsTitle": "You don't have a group yet",
+      "noGroupsDescription": "Create a family group first to manage its repositories.",
+      "importButton": "Import existing",
+      "createButton": "Create new",
+      "emptyStateTitle": "No records in this group yet",
+      "emptyStateDescription": "Import an existing record or create a new one.",
+      "confirmDeactivateTitle": "Remove from group repository",
+      "confirmDeactivateMessage": "Are you sure you want to remove \"{{name}}\" from this group's repository? The global catalog record will not be affected.",
+      "toastImportSuccess": "Added to the group repository",
+      "toastCreateSuccess": "Created and added to the group repository",
+      "toastDeactivateSuccess": "Removed from the group repository",
+      "importModalTitle": "Import existing",
+      "importConfirm": "Import selected",
+      "importSearchPlaceholder": "Search by name...",
+      "importSelectedCount": "{{count}} selected",
+      "importNoResults": "No matching records found.",
+      "importEmptyTitle": "Nothing left to import",
+      "importEmptyDescription": "Every active catalog record is already in this group's repository.",
+      "createModalTitle": {
+        "doctor": "New doctor",
+        "medicalCenter": "New medical center",
+        "pharmacy": "New pharmacy",
+        "insurer": "New insurer"
+      },
+      "duplicateDialog": {
+        "title": "A matching record already exists",
+        "message": {
+          "doctor": "A doctor with that name already exists in the global catalog. Do you want to use the existing record or create a new one?",
+          "medicalCenter": "A medical center with that name already exists in the global catalog. Do you want to use the existing record or create a new one?",
+          "pharmacy": "A pharmacy with that name already exists in the global catalog. Do you want to use the existing record or create a new one?",
+          "insurer": "An insurer with that name already exists in the global catalog. Do you want to use the existing record or create a new one?"
+        },
+        "useExisting": "Use existing",
+        "createAnyway": "Create new anyway"
+      }
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "createGroupCta": {
+      "description": "Need to manage your own family group? You can create a new one at any time.",
+      "button": "Create your own group"
+    }
+  }
 }

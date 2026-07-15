@@ -1,4 +1,4 @@
-import { Menu } from 'lucide-react'
+import { Menu, Moon, Sun } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -8,8 +8,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useAuth } from '@/hooks/useAuth'
-import { useCurrentGroup } from '@/hooks/useCurrentGroup'
+import { useAdministeredGroups } from '@/hooks/useAdministeredGroups'
 import { useSidebar } from '@/hooks/useSidebar'
+import { useThemeStore } from '@/stores/theme.store'
 import type { UserRole } from '@/types'
 
 interface TopBarProps {
@@ -24,14 +25,17 @@ export function TopBar({ role }: TopBarProps) {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { user, logout } = useAuth()
-  const { currentGroup } = useCurrentGroup()
+  const { administeredGroups } = useAdministeredGroups()
   const { tier, toggleSidebar } = useSidebar()
+  const { theme, toggleTheme } = useThemeStore()
 
   const contextText =
     role === 'superadmin'
       ? t('layout.superadminPanel')
       : role === 'admin'
-        ? (currentGroup?.name ?? t('layout.noGroup'))
+        ? administeredGroups.length > 0
+          ? administeredGroups.map((g) => g.name).join(', ')
+          : t('layout.noGroup')
         : user
           ? `${user.firstName} ${user.lastName}`
           : ''
@@ -56,22 +60,32 @@ export function TopBar({ role }: TopBarProps) {
         )}
         <span className="truncate text-sm font-medium text-ink">{contextText}</span>
       </div>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <button
-            type="button"
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-surface-strong text-sm font-semibold text-ink"
-          >
-            {user ? getInitials(user.firstName, user.lastName) : ''}
-          </button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={() => navigate(`/${role}/settings`)}>
-            {t('layout.userMenu.myAccount')}
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={handleLogout}>{t('layout.userMenu.logout')}</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <div className="flex shrink-0 items-center gap-2">
+        <button
+          type="button"
+          onClick={toggleTheme}
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-body hover:bg-surface-soft hover:text-ink"
+          aria-label={theme === 'dark' ? t('layout.switchToLight') : t('layout.switchToDark')}
+        >
+          {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+        </button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button
+              type="button"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-surface-strong text-sm font-semibold text-ink"
+            >
+              {user ? getInitials(user.firstName, user.lastName) : ''}
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => navigate(`/${role}/settings`)}>
+              {t('layout.userMenu.myAccount')}
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>{t('layout.userMenu.logout')}</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </header>
   )
 }

@@ -27,6 +27,29 @@ const InsurerListPage = lazy(() =>
 const PharmacyListPage = lazy(() =>
   import('@/features/repositories-universal/pages/PharmacyListPage').then((m) => ({ default: m.PharmacyListPage }))
 )
+const UserListPage = lazy(() =>
+  import('@/features/user-management/pages/UserListPage').then((m) => ({ default: m.UserListPage }))
+)
+const GroupPage = lazy(() =>
+  import('@/features/groups/pages/GroupPage').then((m) => ({ default: m.GroupPage }))
+)
+const AdminDashboardPage = lazy(() =>
+  import('@/features/groups/pages/AdminDashboardPage').then((m) => ({ default: m.AdminDashboardPage }))
+)
+const GroupOnboardingPage = lazy(() =>
+  import('@/features/groups/pages/GroupOnboardingPage').then((m) => ({ default: m.GroupOnboardingPage }))
+)
+const AdminSettingsPage = lazy(() =>
+  import('@/features/groups/pages/AdminSettingsPage').then((m) => ({ default: m.AdminSettingsPage }))
+)
+const MemberSettingsPage = lazy(() =>
+  import('@/features/groups/pages/MemberSettingsPage').then((m) => ({ default: m.MemberSettingsPage }))
+)
+const GroupRepositoriesPage = lazy(() =>
+  import('@/features/repositories-group/pages/GroupRepositoriesPage').then((m) => ({
+    default: m.GroupRepositoriesPage,
+  }))
+)
 
 function AuthPageWrapper({ children }: { children: React.ReactNode }) {
   return <Suspense fallback={null}>{children}</Suspense>
@@ -79,7 +102,7 @@ export const router = createBrowserRouter([
           {
             element: <ShellLayout role="superadmin" />,
             children: [
-              { path: 'users', element: placeholder('Superadmin / Users')() },
+              { path: 'users', element: <UserListPage /> },
               { path: 'doctors', element: <DoctorListPage /> },
               { path: 'specialties', element: <SpecialtyListPage /> },
               { path: 'medical-centers', element: <MedicalCenterListPage /> },
@@ -101,9 +124,9 @@ export const router = createBrowserRouter([
           {
             element: <ShellLayout role="admin" />,
             children: [
-              { path: 'dashboard', element: placeholder('Admin / Dashboard')() },
-              { path: 'group', element: placeholder('Admin / Group')() },
-              { path: 'group/onboarding', element: placeholder('Admin / Group Onboarding')() },
+              { path: 'dashboard', element: <AdminDashboardPage /> },
+              { path: 'group', element: <GroupPage /> },
+              { path: 'group/onboarding/:groupId', element: <GroupOnboardingPage /> },
               {
                 path: 'members/:id',
                 element: <Outlet />,
@@ -115,8 +138,8 @@ export const router = createBrowserRouter([
                   { path: 'notes', element: placeholder('Admin / Member / Notes')() },
                 ],
               },
-              { path: 'repositories', element: placeholder('Admin / Repositories')() },
-              { path: 'settings', element: placeholder('Admin / Settings')() },
+              { path: 'repositories', element: <GroupRepositoriesPage /> },
+              { path: 'settings', element: <AdminSettingsPage /> },
             ],
           },
         ],
@@ -154,7 +177,7 @@ export const router = createBrowserRouter([
                 ],
               },
               { path: 'notes', element: placeholder('Member / Notes')() },
-              { path: 'settings', element: placeholder('Member / Settings')() },
+              { path: 'settings', element: <MemberSettingsPage /> },
             ],
           },
         ],

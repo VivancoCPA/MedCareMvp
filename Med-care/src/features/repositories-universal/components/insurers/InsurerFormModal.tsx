@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslation } from 'react-i18next'
@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
+import { getInitials } from '@/lib/utils'
 import type { Insurer } from '@/types'
 
 interface InsurerFormModalProps {
@@ -20,10 +21,11 @@ interface InsurerFormModalProps {
 export function InsurerFormModal({ open, insurer, onClose, onSubmit }: InsurerFormModalProps) {
   const { t } = useTranslation()
   const isEdit = !!insurer
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const form = useForm<InsurerFormValues>({
     resolver: zodResolver(insurerSchema),
-    defaultValues: { name: '', emergencyPhone: '', website: '' },
+    defaultValues: { name: '', emergencyPhone: '', website: '', logoUrl: null },
   })
 
   useEffect(() => {
@@ -32,9 +34,25 @@ export function InsurerFormModal({ open, insurer, onClose, onSubmit }: InsurerFo
         name: insurer?.name ?? '',
         emergencyPhone: insurer?.emergencyPhone ?? '',
         website: insurer?.website ?? '',
+        logoUrl: insurer?.logoUrl ?? null,
       })
     }
   }, [open, insurer, form])
+
+  const logoUrl = form.watch('logoUrl')
+  const name = form.watch('name')
+
+  function handleLogoChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    form.setValue('logoUrl', URL.createObjectURL(file), { shouldValidate: true })
+    e.target.value = ''
+  }
+
+  function handleRemoveLogo() {
+    form.setValue('logoUrl', null, { shouldValidate: true })
+    if (fileInputRef.current) fileInputRef.current.value = ''
+  }
 
   async function handleSubmit(values: InsurerFormValues) {
     try {
@@ -54,6 +72,35 @@ export function InsurerFormModal({ open, insurer, onClose, onSubmit }: InsurerFo
           </DialogTitle>
         </DialogHeader>
         <form className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
+          <div className="flex items-center gap-4">
+            <div className="flex h-12 w-16 shrink-0 items-center justify-center overflow-hidden rounded-md bg-muted">
+              {logoUrl ? (
+                <img
+                  src={logoUrl}
+                  alt={t('repositories.insurers.logoAlt')}
+                  className="h-full w-full object-contain"
+                />
+              ) : (
+                <span className="text-xs font-medium text-ink">{getInitials(name) || '—'}</span>
+              )}
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="insurer-logo">{t('repositories.insurers.fieldLogo')}</Label>
+              <input
+                ref={fileInputRef}
+                id="insurer-logo"
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                onChange={handleLogoChange}
+                className="text-sm"
+              />
+              {logoUrl && (
+                <Button type="button" variant="outline" size="sm" onClick={handleRemoveLogo} className="w-fit">
+                  {t('repositories.insurers.removeLogo')}
+                </Button>
+              )}
+            </div>
+          </div>
           <div className="space-y-1">
             <Label htmlFor="insurer-name">{t('repositories.insurers.fields.name')}</Label>
             <Input id="insurer-name" {...form.register('name')} />

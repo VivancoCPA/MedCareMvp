@@ -48,6 +48,13 @@
     --sidebar-collapsed-width: 64px;
     --topbar-height: 64px;
 
+    /* Sidebar — fijo, no cambia con el tema */
+    --color-sidebar-bg: #181d26;
+    --color-sidebar-text: #ffffff;
+    --color-sidebar-item-active: rgba(255, 255, 255, 0.10);
+    --color-sidebar-item-hover: rgba(255, 255, 255, 0.05);
+    --color-sidebar-item-border: #93c5fd;
+
     /* Shadcn compatibility */
     --background: 0 0% 100%;
     --foreground: 222 47% 11%;

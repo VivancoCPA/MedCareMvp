@@ -7,8 +7,19 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Badge } from '@/components/ui/badge'
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination'
 import { StatusBadge } from '@/components/shared/StatusBadge'
 import { EmptyState } from '@/components/shared/EmptyState'
+import { getInitials } from '@/lib/utils'
+import { usePagination } from '@/hooks/usePagination'
 import type { Doctor, Specialty } from '@/types'
 
 type StatusFilter = 'all' | 'active' | 'inactive'
@@ -49,6 +60,8 @@ export function DoctorList({ doctors, specialties, isLoading, onEdit, onDeactiva
     })
   }, [doctors, debouncedSearch, status])
 
+  const { page, setPage, totalPages, paginated } = usePagination(filtered)
+
   return (
     <div className="space-y-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -85,6 +98,7 @@ export function DoctorList({ doctors, specialties, isLoading, onEdit, onDeactiva
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead className="w-10" />
               <TableHead>{t('repositories.doctors.columns.name')}</TableHead>
               <TableHead>{t('repositories.doctors.columns.specialty')}</TableHead>
               <TableHead>{t('repositories.doctors.columns.phone')}</TableHead>
@@ -94,12 +108,23 @@ export function DoctorList({ doctors, specialties, isLoading, onEdit, onDeactiva
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filtered.map((doctor) => (
-              <TableRow key={doctor.id}>
-                <TableCell>{doctor.firstName} {doctor.lastName}</TableCell>
-                <TableCell>{specialtyNameById.get(doctor.specialtyId) ?? '—'}</TableCell>
-                <TableCell>{doctor.phone ?? '—'}</TableCell>
-                <TableCell>
+            {paginated.map((doctor) => (
+              // h-12 is the app-wide row-height standard (48px), applied identically across all five catalogs
+              <TableRow key={doctor.id} className="h-12">
+                <TableCell className="py-0">
+                  <Avatar className="h-8 w-8">
+                    {doctor.avatarUrl && (
+                      <AvatarImage src={doctor.avatarUrl} alt={t('repositories.doctors.avatarAlt')} />
+                    )}
+                    <AvatarFallback className="text-xs">
+                      {getInitials(`${doctor.firstName} ${doctor.lastName}`)}
+                    </AvatarFallback>
+                  </Avatar>
+                </TableCell>
+                <TableCell className="py-0">{doctor.firstName} {doctor.lastName}</TableCell>
+                <TableCell className="py-0">{specialtyNameById.get(doctor.specialtyId) ?? '—'}</TableCell>
+                <TableCell className="py-0">{doctor.phone ?? '—'}</TableCell>
+                <TableCell className="py-0">
                   {doctor.originGroupId ? (
                     <Badge variant="outline" className="border-transparent bg-[--color-signature-peach]">
                       {t('repositories.common.originPropagated')}
@@ -108,10 +133,10 @@ export function DoctorList({ doctors, specialties, isLoading, onEdit, onDeactiva
                     <span className="text-muted">{t('repositories.common.originSuperAdmin')}</span>
                   )}
                 </TableCell>
-                <TableCell>
+                <TableCell className="py-0">
                   <StatusBadge isActive={doctor.isActive} />
                 </TableCell>
-                <TableCell className="space-x-2 text-right">
+                <TableCell className="space-x-2 py-0 text-right">
                   <Button variant="ghost" size="icon" onClick={() => onEdit(doctor)}>
                     <Pencil className="h-4 w-4" />
                     <span className="sr-only">{t('repositories.common.edit')}</span>
@@ -132,6 +157,34 @@ export function DoctorList({ doctors, specialties, isLoading, onEdit, onDeactiva
             ))}
           </TableBody>
         </Table>
+      )}
+
+      {totalPages > 1 && (
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => setPage(Math.max(1, page - 1))}
+                aria-disabled={page === 1}
+                className={page === 1 ? 'pointer-events-none opacity-50' : undefined}
+              />
+            </PaginationItem>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
+              <PaginationItem key={pageNumber}>
+                <PaginationLink isActive={pageNumber === page} onClick={() => setPage(pageNumber)}>
+                  {pageNumber}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => setPage(Math.min(totalPages, page + 1))}
+                aria-disabled={page === totalPages}
+                className={page === totalPages ? 'pointer-events-none opacity-50' : undefined}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       )}
     </div>
   )

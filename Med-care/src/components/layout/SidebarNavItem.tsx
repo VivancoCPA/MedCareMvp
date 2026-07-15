@@ -16,9 +16,9 @@ export function SidebarNavItem({ icon: Icon, label, to, collapsed }: SidebarNavI
       to={to}
       className={({ isActive }) =>
         cn(
-          'flex items-center gap-3 rounded-md border-l-[3px] border-transparent px-3 py-2 text-sm text-white/80 transition-colors hover:bg-white/5',
+          'flex items-center gap-3 rounded-md border-l-[3px] border-transparent px-3 py-2 text-sm text-sidebar-foreground/80 transition-colors hover:bg-sidebar-hover',
           collapsed && 'justify-center px-0',
-          isActive && 'border-info-border bg-primary-active text-white'
+          isActive && 'border-sidebar-border bg-sidebar-active text-sidebar-foreground'
         )
       }
     >

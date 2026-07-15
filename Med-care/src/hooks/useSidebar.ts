@@ -28,13 +28,15 @@ export function useSidebar() {
   const tier = useSyncExternalStore(subscribe, getTier)
   const sidebarOpen = useUiStore((s) => s.sidebarOpen)
   const setSidebarOpen = useUiStore((s) => s.setSidebarOpen)
+  const sidebarCollapsed = useUiStore((s) => s.sidebarCollapsed)
+  const toggleSidebarCollapsed = useUiStore((s) => s.toggleSidebar)
   const location = useLocation()
 
   useEffect(() => {
     setSidebarOpen(false)
   }, [location.pathname, setSidebarOpen])
 
-  const collapsed = tier === 'tablet'
+  const collapsed = tier === 'tablet' || (tier === 'desktop' && sidebarCollapsed)
 
   return {
     sidebarOpen,
@@ -42,5 +44,6 @@ export function useSidebar() {
     tier,
     toggleSidebar: () => setSidebarOpen(!sidebarOpen),
     closeSidebar: () => setSidebarOpen(false),
+    toggleSidebarCollapsed,
   }
 }

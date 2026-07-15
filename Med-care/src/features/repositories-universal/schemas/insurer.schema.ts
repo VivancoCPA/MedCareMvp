@@ -9,6 +9,7 @@ export const insurerSchema = z.object({
     .url({ message: t('validation.invalidUrl') })
     .optional()
     .or(z.literal('')),
+  logoUrl: z.string().nullable().optional(),
 })
 
 export type InsurerFormValues = z.infer<typeof insurerSchema>

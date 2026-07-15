@@ -6,8 +6,17 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination'
 import { StatusBadge } from '@/components/shared/StatusBadge'
 import { EmptyState } from '@/components/shared/EmptyState'
+import { usePagination } from '@/hooks/usePagination'
 import type { Specialty } from '@/types'
 
 type StatusFilter = 'all' | 'active' | 'inactive'
@@ -43,6 +52,8 @@ export function SpecialtyList({ specialties, isLoading, onEdit, onDeactivate, on
       return matchesSearch && matchesStatus
     })
   }, [specialties, debouncedSearch, status])
+
+  const { page, setPage, totalPages, paginated } = usePagination(filtered)
 
   return (
     <div className="space-y-4">
@@ -87,14 +98,15 @@ export function SpecialtyList({ specialties, isLoading, onEdit, onDeactivate, on
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filtered.map((specialty) => (
-              <TableRow key={specialty.id}>
-                <TableCell>{specialty.name}</TableCell>
-                <TableCell>{specialty.description ? truncate(specialty.description, 60) : '—'}</TableCell>
-                <TableCell>
+            {paginated.map((specialty) => (
+              // h-12 is the app-wide row-height standard (48px), applied identically across all five catalogs
+              <TableRow key={specialty.id} className="h-12">
+                <TableCell className="py-0">{specialty.name}</TableCell>
+                <TableCell className="py-0">{specialty.description ? truncate(specialty.description, 60) : '—'}</TableCell>
+                <TableCell className="py-0">
                   <StatusBadge isActive={specialty.isActive} />
                 </TableCell>
-                <TableCell className="space-x-2 text-right">
+                <TableCell className="space-x-2 py-0 text-right">
                   <Button variant="ghost" size="icon" onClick={() => onEdit(specialty)}>
                     <Pencil className="h-4 w-4" />
                     <span className="sr-only">{t('repositories.common.edit')}</span>
@@ -115,6 +127,34 @@ export function SpecialtyList({ specialties, isLoading, onEdit, onDeactivate, on
             ))}
           </TableBody>
         </Table>
+      )}
+
+      {totalPages > 1 && (
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => setPage(Math.max(1, page - 1))}
+                aria-disabled={page === 1}
+                className={page === 1 ? 'pointer-events-none opacity-50' : undefined}
+              />
+            </PaginationItem>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
+              <PaginationItem key={pageNumber}>
+                <PaginationLink isActive={pageNumber === page} onClick={() => setPage(pageNumber)}>
+                  {pageNumber}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => setPage(Math.min(totalPages, page + 1))}
+                aria-disabled={page === totalPages}
+                className={page === totalPages ? 'pointer-events-none opacity-50' : undefined}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       )}
     </div>
   )

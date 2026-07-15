@@ -8,6 +8,7 @@ export interface DoctorCreateDTO {
   specialtyId: string
   phone: string | null
   email: string | null
+  avatarUrl: string | null
 }
 
 export type DoctorUpdateDTO = DoctorCreateDTO

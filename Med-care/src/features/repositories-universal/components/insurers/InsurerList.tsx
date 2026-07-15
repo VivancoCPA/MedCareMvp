@@ -6,8 +6,18 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination'
 import { StatusBadge } from '@/components/shared/StatusBadge'
 import { EmptyState } from '@/components/shared/EmptyState'
+import { getInitials } from '@/lib/utils'
+import { usePagination } from '@/hooks/usePagination'
 import type { Insurer } from '@/types'
 
 type StatusFilter = 'all' | 'active' | 'inactive'
@@ -39,6 +49,8 @@ export function InsurerList({ insurers, isLoading, onEdit, onDeactivate, onReact
       return matchesSearch && matchesStatus
     })
   }, [insurers, debouncedSearch, status])
+
+  const { page, setPage, totalPages, paginated } = usePagination(filtered)
 
   return (
     <div className="space-y-4">
@@ -76,6 +88,7 @@ export function InsurerList({ insurers, isLoading, onEdit, onDeactivate, onReact
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead className="w-10" />
               <TableHead>{t('repositories.insurers.columns.name')}</TableHead>
               <TableHead>{t('repositories.insurers.columns.emergencyPhone')}</TableHead>
               <TableHead>{t('repositories.insurers.columns.website')}</TableHead>
@@ -84,11 +97,25 @@ export function InsurerList({ insurers, isLoading, onEdit, onDeactivate, onReact
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filtered.map((insurer) => (
-              <TableRow key={insurer.id}>
-                <TableCell>{insurer.name}</TableCell>
-                <TableCell>{insurer.emergencyPhone ?? '—'}</TableCell>
-                <TableCell>
+            {paginated.map((insurer) => (
+              // h-12 is the app-wide row-height standard (48px), applied identically across all five catalogs
+              <TableRow key={insurer.id} className="h-12">
+                <TableCell className="py-0">
+                  <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-md bg-muted">
+                    {insurer.logoUrl ? (
+                      <img
+                        src={insurer.logoUrl}
+                        alt={t('repositories.insurers.logoAlt')}
+                        className="h-full w-full object-contain"
+                      />
+                    ) : (
+                      <span className="text-[10px] font-medium text-ink">{getInitials(insurer.name)}</span>
+                    )}
+                  </div>
+                </TableCell>
+                <TableCell className="py-0">{insurer.name}</TableCell>
+                <TableCell className="py-0">{insurer.emergencyPhone ?? '—'}</TableCell>
+                <TableCell className="py-0">
                   {insurer.website ? (
                     <a
                       href={insurer.website}
@@ -102,10 +129,10 @@ export function InsurerList({ insurers, isLoading, onEdit, onDeactivate, onReact
                     '—'
                   )}
                 </TableCell>
-                <TableCell>
+                <TableCell className="py-0">
                   <StatusBadge isActive={insurer.isActive} />
                 </TableCell>
-                <TableCell className="space-x-2 text-right">
+                <TableCell className="space-x-2 py-0 text-right">
                   <Button variant="ghost" size="icon" onClick={() => onEdit(insurer)}>
                     <Pencil className="h-4 w-4" />
                     <span className="sr-only">{t('repositories.common.edit')}</span>
@@ -126,6 +153,34 @@ export function InsurerList({ insurers, isLoading, onEdit, onDeactivate, onReact
             ))}
           </TableBody>
         </Table>
+      )}
+
+      {totalPages > 1 && (
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => setPage(Math.max(1, page - 1))}
+                aria-disabled={page === 1}
+                className={page === 1 ? 'pointer-events-none opacity-50' : undefined}
+              />
+            </PaginationItem>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
+              <PaginationItem key={pageNumber}>
+                <PaginationLink isActive={pageNumber === page} onClick={() => setPage(pageNumber)}>
+                  {pageNumber}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => setPage(Math.min(totalPages, page + 1))}
+                aria-disabled={page === totalPages}
+                className={page === totalPages ? 'pointer-events-none opacity-50' : undefined}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       )}
     </div>
   )

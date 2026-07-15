@@ -24,6 +24,8 @@ export function MedicalCenterListPage() {
   const [editingCenter, setEditingCenter] = useState<MedicalCenter | null>(null)
   const [confirmTarget, setConfirmTarget] = useState<MedicalCenter | null>(null)
   const [isDeactivating, setIsDeactivating] = useState(false)
+  const [reactivateTarget, setReactivateTarget] = useState<MedicalCenter | null>(null)
+  const [isReactivating, setIsReactivating] = useState(false)
 
   function openCreate() {
     setEditingCenter(null)
@@ -60,6 +62,17 @@ export function MedicalCenterListPage() {
     }
   }
 
+  async function handleConfirmReactivate() {
+    if (!reactivateTarget) return
+    setIsReactivating(true)
+    try {
+      await reactivateMedicalCenter(reactivateTarget.id)
+      setReactivateTarget(null)
+    } finally {
+      setIsReactivating(false)
+    }
+  }
+
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
@@ -75,7 +88,7 @@ export function MedicalCenterListPage() {
         isLoading={isLoading}
         onEdit={openEdit}
         onDeactivate={setConfirmTarget}
-        onReactivate={(center) => reactivateMedicalCenter(center.id)}
+        onReactivate={setReactivateTarget}
       />
 
       <MedicalCenterFormModal
@@ -92,6 +105,15 @@ export function MedicalCenterListPage() {
         onConfirm={handleConfirmDeactivate}
         onCancel={() => setConfirmTarget(null)}
         isLoading={isDeactivating}
+      />
+
+      <ConfirmModal
+        open={!!reactivateTarget}
+        title={t('repositories.common.confirmReactivateTitle')}
+        message={t('repositories.medicalCenters.confirmReactivateMessage')}
+        onConfirm={handleConfirmReactivate}
+        onCancel={() => setReactivateTarget(null)}
+        isLoading={isReactivating}
       />
     </div>
   )

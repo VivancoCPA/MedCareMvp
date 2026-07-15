@@ -71,6 +71,15 @@ export default {
         cream: 'var(--color-signature-cream)',
         forest: 'var(--color-signature-forest)',
 
+        // Sidebar — fondo/texto fijos, no cambian con el tema (ver globals.css)
+        sidebar: {
+          DEFAULT: 'var(--color-sidebar-bg)',
+          foreground: 'var(--color-sidebar-text)',
+          active: 'var(--color-sidebar-item-active)',
+          hover: 'var(--color-sidebar-item-hover)',
+          border: 'var(--color-sidebar-item-border)',
+        },
+
         // ── Alias de compatibilidad con Shadcn/ui ──────────────────────
         // Cada nombre de la izquierda es lo que los componentes ui/*.tsx
         // usan por convención (bg-background, text-foreground, etc.).

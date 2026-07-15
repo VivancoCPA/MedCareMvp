@@ -1,5 +1,5 @@
 import { useGroupStore } from '@/stores/group.store'
 
-export function useCurrentGroup() {
+export function useAdministeredGroups() {
   return useGroupStore()
 }

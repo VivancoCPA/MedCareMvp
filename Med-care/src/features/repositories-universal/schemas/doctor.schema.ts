@@ -11,6 +11,7 @@ export const doctorSchema = z.object({
     .email({ message: t('validation.email') })
     .optional()
     .or(z.literal('')),
+  avatarUrl: z.string().nullable().optional(),
 })
 
 export type DoctorFormValues = z.infer<typeof doctorSchema>

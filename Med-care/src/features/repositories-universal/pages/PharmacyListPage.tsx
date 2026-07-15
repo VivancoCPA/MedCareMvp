@@ -18,6 +18,8 @@ export function PharmacyListPage() {
   const [editingPharmacy, setEditingPharmacy] = useState<Pharmacy | null>(null)
   const [confirmTarget, setConfirmTarget] = useState<Pharmacy | null>(null)
   const [isDeactivating, setIsDeactivating] = useState(false)
+  const [reactivateTarget, setReactivateTarget] = useState<Pharmacy | null>(null)
+  const [isReactivating, setIsReactivating] = useState(false)
 
   function openCreate() {
     setEditingPharmacy(null)
@@ -53,6 +55,17 @@ export function PharmacyListPage() {
     }
   }
 
+  async function handleConfirmReactivate() {
+    if (!reactivateTarget) return
+    setIsReactivating(true)
+    try {
+      await reactivatePharmacy(reactivateTarget.id)
+      setReactivateTarget(null)
+    } finally {
+      setIsReactivating(false)
+    }
+  }
+
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
@@ -68,7 +81,7 @@ export function PharmacyListPage() {
         isLoading={isLoading}
         onEdit={openEdit}
         onDeactivate={setConfirmTarget}
-        onReactivate={(pharmacy) => reactivatePharmacy(pharmacy.id)}
+        onReactivate={setReactivateTarget}
       />
 
       <PharmacyFormModal
@@ -85,6 +98,15 @@ export function PharmacyListPage() {
         onConfirm={handleConfirmDeactivate}
         onCancel={() => setConfirmTarget(null)}
         isLoading={isDeactivating}
+      />
+
+      <ConfirmModal
+        open={!!reactivateTarget}
+        title={t('repositories.common.confirmReactivateTitle')}
+        message={t('repositories.pharmacies.confirmReactivateMessage')}
+        onConfirm={handleConfirmReactivate}
+        onCancel={() => setReactivateTarget(null)}
+        isLoading={isReactivating}
       />
     </div>
   )

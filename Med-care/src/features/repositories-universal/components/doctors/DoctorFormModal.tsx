@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslation } from 'react-i18next'
@@ -10,6 +10,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
+import { getInitials } from '@/lib/utils'
 import type { Doctor } from '@/types'
 
 interface DoctorFormModalProps {
@@ -24,10 +26,11 @@ export function DoctorFormModal({ open, doctor, onClose, onSubmit }: DoctorFormM
   const { specialties } = useSpecialties()
   const isEdit = !!doctor
   const activeSpecialties = specialties.filter((s) => s.isActive)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const form = useForm<DoctorFormValues>({
     resolver: zodResolver(doctorSchema),
-    defaultValues: { firstName: '', lastName: '', specialtyId: '', phone: '', email: '' },
+    defaultValues: { firstName: '', lastName: '', specialtyId: '', phone: '', email: '', avatarUrl: null },
   })
 
   useEffect(() => {
@@ -38,9 +41,26 @@ export function DoctorFormModal({ open, doctor, onClose, onSubmit }: DoctorFormM
         specialtyId: doctor?.specialtyId ?? '',
         phone: doctor?.phone ?? '',
         email: doctor?.email ?? '',
+        avatarUrl: doctor?.avatarUrl ?? null,
       })
     }
   }, [open, doctor, form])
+
+  const avatarUrl = form.watch('avatarUrl')
+  const firstName = form.watch('firstName')
+  const lastName = form.watch('lastName')
+
+  function handlePhotoChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    form.setValue('avatarUrl', URL.createObjectURL(file), { shouldValidate: true })
+    e.target.value = ''
+  }
+
+  function handleRemovePhoto() {
+    form.setValue('avatarUrl', null, { shouldValidate: true })
+    if (fileInputRef.current) fileInputRef.current.value = ''
+  }
 
   async function handleSubmit(values: DoctorFormValues) {
     try {
@@ -60,6 +80,28 @@ export function DoctorFormModal({ open, doctor, onClose, onSubmit }: DoctorFormM
           </DialogTitle>
         </DialogHeader>
         <form className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
+          <div className="flex items-center gap-4">
+            <Avatar className="h-16 w-16">
+              {avatarUrl && <AvatarImage src={avatarUrl} alt={t('repositories.doctors.avatarAlt')} />}
+              <AvatarFallback>{getInitials(`${firstName} ${lastName}`) || '—'}</AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="doctor-avatar">{t('repositories.doctors.fieldAvatar')}</Label>
+              <input
+                ref={fileInputRef}
+                id="doctor-avatar"
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                onChange={handlePhotoChange}
+                className="text-sm"
+              />
+              {avatarUrl && (
+                <Button type="button" variant="outline" size="sm" onClick={handleRemovePhoto} className="w-fit">
+                  {t('repositories.doctors.removeAvatar')}
+                </Button>
+              )}
+            </div>
+          </div>
           <div className="space-y-1">
             <Label htmlFor="doctor-firstName">{t('repositories.doctors.fields.firstName')}</Label>
             <Input id="doctor-firstName" {...form.register('firstName')} />

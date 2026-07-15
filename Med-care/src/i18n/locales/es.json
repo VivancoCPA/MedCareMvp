@@ -87,6 +87,10 @@
     "superadminPanel": "Panel de administración",
     "noGroup": "Sin grupo",
     "toggleSidebar": "Abrir menú",
+    "collapseSidebar": "Colapsar menú",
+    "expandSidebar": "Expandir menú",
+    "switchToDark": "Cambiar a modo oscuro",
+    "switchToLight": "Cambiar a modo claro",
     "userMenu": {
       "myAccount": "Mi cuenta",
       "logout": "Cerrar sesión"
@@ -97,8 +101,207 @@
     "defaultDescription": "Todavía no hay información disponible en esta sección."
   },
   "common": {},
-  "users": {},
-  "groups": {},
+  "users": {
+    "title": "Usuarios",
+    "createButton": "Nuevo usuario",
+    "createModalTitle": "Nuevo usuario",
+    "editModalTitle": "Editar usuario",
+    "searchPlaceholder": "Buscar por nombre o correo...",
+    "noGroup": "Sin grupo",
+    "groupMembersTitle": "Miembros de mi grupo",
+    "columns": {
+      "user": "Usuario",
+      "role": "Rol",
+      "group": "Grupo",
+      "origin": "Origen",
+      "status": "Estado",
+      "createdAt": "Creado",
+      "phone": "Teléfono",
+      "birthDate": "Fecha de nacimiento"
+    },
+    "fields": {
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo electrónico",
+      "role": "Rol",
+      "birthDate": "Fecha de nacimiento",
+      "gender": "Género",
+      "phone": "Teléfono"
+    },
+    "fieldAvatar": "Foto de perfil",
+    "avatarAlt": "Foto de perfil",
+    "removeAvatar": "Quitar foto",
+    "roles": {
+      "superadmin": "SuperAdmin",
+      "admin": "Admin",
+      "member": "Miembro"
+    },
+    "genders": {
+      "male": "Masculino",
+      "female": "Femenino",
+      "other": "Otro",
+      "unspecified": "Sin especificar"
+    },
+    "adminNoGroupWarningTitle": "Este Admin no tendrá grupo",
+    "adminNoGroupWarningDescription": "Al crear un usuario con rol Admin, no se le asignará ningún grupo. Deberá crear uno después de iniciar sesión.",
+    "confirmDeactivateTitle": "Desactivar usuario",
+    "confirmDeactivateMessage": "¿Estás seguro de que deseas desactivar a {{name}}?",
+    "confirmReactivateTitle": "Reactivar usuario",
+    "confirmReactivateMessage": "¿Estás seguro de que deseas reactivar a {{name}}?",
+    "toastCreateSuccess": "Usuario creado correctamente",
+    "toastUpdateSuccess": "Usuario actualizado correctamente",
+    "toastDeactivateSuccess": "Usuario desactivado correctamente",
+    "toastReactivateSuccess": "Usuario reactivado correctamente",
+    "toastPasswordSent": "Se envió la contraseña temporal al correo del usuario (simulado)",
+    "toastPdfSent": "Se envió un resumen en PDF al usuario (simulado)",
+    "toastError": "Ocurrió un error. Inténtalo nuevamente.",
+    "errorEmailTaken": "Este correo electrónico ya está en uso",
+    "tooltips": {
+      "cannotDeactivateSelf": "No puedes desactivar tu propia cuenta",
+      "emailRoleDisabled": "El correo y el rol solo pueden ser editados por un SuperAdmin"
+    },
+    "emptyStateTitle": "No se encontraron usuarios",
+    "emptyStateDescription": "Intenta ajustar la búsqueda o los filtros."
+  },
+  "groups": {
+    "header": {
+      "editName": "Editar nombre"
+    },
+    "myGroups": {
+      "title": "Mis grupos",
+      "createAnother": "Crear otro grupo"
+    },
+    "empty": {
+      "title": "Aún no tienes un grupo familiar",
+      "description": "Crea un grupo para empezar a gestionar a tus miembros y su información de salud.",
+      "cta": "Crear grupo familiar"
+    },
+    "createModal": {
+      "title": "Crear grupo familiar",
+      "nameLabel": "Nombre del grupo",
+      "avatarLabel": "Avatar del grupo",
+      "avatarAlt": "Avatar del grupo",
+      "removeAvatar": "Quitar avatar",
+      "confirm": "Crear grupo"
+    },
+    "status": {
+      "deactivateButton": "Desactivar grupo",
+      "reactivateButton": "Reactivar grupo",
+      "confirmDeactivateTitle": "Desactivar grupo",
+      "confirmDeactivateMessage": "¿Estás seguro de que deseas desactivar el grupo \"{{name}}\"? Dejará de aparecer como tu grupo activo, pero los datos de sus miembros se conservarán.",
+      "confirmReactivateTitle": "Reactivar grupo",
+      "confirmReactivateMessage": "¿Estás seguro de que deseas reactivar el grupo \"{{name}}\"?",
+      "toastDeactivateSuccess": "Grupo desactivado correctamente",
+      "toastReactivateSuccess": "Grupo reactivado correctamente"
+    },
+    "editModal": {
+      "title": "Editar grupo",
+      "nameLabel": "Nombre del grupo",
+      "avatarLabel": "Avatar del grupo",
+      "avatarAlt": "Avatar del grupo",
+      "removeAvatar": "Quitar avatar",
+      "membersTitle": "Miembros del grupo",
+      "toastSuccess": "Grupo actualizado correctamente"
+    },
+    "editNonAccountMember": {
+      "title": "Editar miembro",
+      "submit": "Guardar cambios",
+      "toastSuccess": "Miembro actualizado correctamente"
+    },
+    "memberTable": {
+      "emptyTitle": "No hay miembros en este grupo",
+      "emptyDescription": "Agrega un miembro con o sin cuenta para comenzar.",
+      "columns": {
+        "name": "Nombre",
+        "type": "Tipo",
+        "status": "Estado"
+      },
+      "adminBadge": "Admin",
+      "remove": "Remover del grupo",
+      "type": {
+        "account": "Con cuenta",
+        "human": "Persona",
+        "pet": "Mascota",
+        "other": "Otro"
+      }
+    },
+    "removeMember": {
+      "blockedTitle": "No se puede remover al administrador",
+      "blockedSelfAdmin": "El administrador del grupo no puede removerse a sí mismo. Transfiere la administración primero.",
+      "confirmTitle": "Remover del grupo",
+      "confirmMessage": "¿Estás seguro de que deseas remover a {{name}} del grupo?"
+    },
+    "addMember": {
+      "button": "Agregar miembro",
+      "modalTitle": "Agregar miembro",
+      "tabs": {
+        "account": "Con cuenta",
+        "nonAccount": "Sin cuenta"
+      },
+      "account": {
+        "emailLabel": "Correo electrónico",
+        "submit": "Agregar",
+        "alreadyInGroup": "Este usuario ya es miembro de este grupo",
+        "alreadyInAnotherGroup": "Este usuario ya pertenece a otro grupo familiar y no puede ser agregado.",
+        "createPrompt": "No se encontró ningún usuario con ese correo. Completa los datos para crear una cuenta nueva.",
+        "createSubmit": "Crear cuenta y agregar",
+        "selectLabel": "Selecciona un usuario",
+        "selectPlaceholder": "Selecciona un usuario disponible...",
+        "searchPlaceholder": "Buscar por nombre o correo...",
+        "noResults": "No se encontraron usuarios.",
+        "emptyCandidatesTitle": "No hay usuarios disponibles",
+        "emptyCandidatesDescription": "No hay usuarios disponibles para agregar a este grupo en este momento."
+      },
+      "nonAccount": {
+        "avatarLabel": "Foto",
+        "avatarAlt": "Foto del miembro",
+        "removeAvatar": "Quitar foto",
+        "fields": {
+          "firstName": "Nombre",
+          "lastName": "Apellido",
+          "memberType": "Tipo de miembro",
+          "birthDate": "Fecha de nacimiento",
+          "gender": "Género",
+          "breed": "Raza",
+          "bloodType": "Tipo de sangre"
+        },
+        "memberTypes": {
+          "human": "Persona",
+          "pet": "Mascota",
+          "other": "Otro"
+        },
+        "bloodTypeNone": "Sin especificar",
+        "bloodTypeUnknown": "Desconocido",
+        "submit": "Agregar miembro"
+      }
+    },
+    "onboarding": {
+      "title": "Configura tu grupo",
+      "skip": "Omitir por ahora",
+      "continue": "Continuar",
+      "steps": {
+        "doctors": "Médicos",
+        "centersPharmacies": "Centros y farmacias",
+        "members": "Miembros"
+      },
+      "doctors": {
+        "title": "Agrega tus médicos de confianza",
+        "description": "Importa un médico del catálogo global o crea uno nuevo para este grupo."
+      },
+      "centersPharmacies": {
+        "title": "Agrega centros médicos y farmacias",
+        "description": "Importa un centro médico o farmacia del catálogo global, o crea nuevos para este grupo."
+      },
+      "members": {
+        "title": "Agrega miembros a tu grupo",
+        "description": "Agrega personas con o sin cuenta a tu grupo familiar."
+      }
+    },
+    "toastCreateSuccess": "Grupo creado correctamente",
+    "toastAddMemberSuccess": "Miembro agregado correctamente",
+    "toastRemoveMemberSuccess": "Miembro removido del grupo",
+    "toastError": "Ocurrió un error. Inténtalo nuevamente."
+  },
   "appointments": {},
   "exams": {},
   "notes": {},
@@ -120,6 +323,7 @@
       "originSuperAdmin": "SuperAdmin",
       "originPropagated": "Propagado",
       "confirmDeactivateTitle": "Desactivar registro",
+      "confirmReactivateTitle": "Reactivar registro",
       "toastCreateSuccess": "Registro de {{entity}} creado correctamente",
       "toastUpdateSuccess": "Registro de {{entity}} actualizado correctamente",
       "toastDeactivateSuccess": "Registro de {{entity}} desactivado correctamente",
@@ -135,6 +339,10 @@
       "createModalTitle": "Nuevo médico",
       "editModalTitle": "Editar médico",
       "confirmDeactivateMessage": "¿Estás seguro de que deseas desactivar a este médico?",
+      "confirmReactivateMessage": "¿Estás seguro de que deseas reactivar a este médico?",
+      "fieldAvatar": "Foto",
+      "avatarAlt": "Foto del médico",
+      "removeAvatar": "Quitar foto",
       "columns": {
         "name": "Nombre",
         "specialty": "Especialidad",
@@ -158,6 +366,7 @@
       "createModalTitle": "Nueva especialidad",
       "editModalTitle": "Editar especialidad",
       "confirmDeactivateMessage": "¿Estás seguro de que deseas desactivar esta especialidad?",
+      "confirmReactivateMessage": "¿Estás seguro de que deseas reactivar esta especialidad?",
       "columns": {
         "name": "Nombre",
         "description": "Descripción",
@@ -175,6 +384,7 @@
       "createModalTitle": "Nuevo centro médico",
       "editModalTitle": "Editar centro médico",
       "confirmDeactivateMessage": "¿Estás seguro de que deseas desactivar este centro médico?",
+      "confirmReactivateMessage": "¿Estás seguro de que deseas reactivar este centro médico?",
       "columns": {
         "name": "Nombre",
         "type": "Tipo",
@@ -204,6 +414,10 @@
       "createModalTitle": "Nueva aseguradora",
       "editModalTitle": "Editar aseguradora",
       "confirmDeactivateMessage": "¿Estás seguro de que deseas desactivar esta aseguradora?",
+      "confirmReactivateMessage": "¿Estás seguro de que deseas reactivar esta aseguradora?",
+      "fieldLogo": "Logo",
+      "logoAlt": "Logo de la aseguradora",
+      "removeLogo": "Quitar logo",
       "columns": {
         "name": "Nombre",
         "emergencyPhone": "Teléfono de emergencia",
@@ -223,6 +437,7 @@
       "createModalTitle": "Nueva farmacia",
       "editModalTitle": "Editar farmacia",
       "confirmDeactivateMessage": "¿Estás seguro de que deseas desactivar esta farmacia?",
+      "confirmReactivateMessage": "¿Estás seguro de que deseas reactivar esta farmacia?",
       "columns": {
         "name": "Nombre",
         "address": "Dirección",
@@ -236,5 +451,57 @@
       }
     }
   },
-  "settings": {}
+  "groupRepositories": {
+    "common": {
+      "tabs": {
+        "doctor": "Médicos",
+        "medicalCenter": "Centros médicos",
+        "pharmacy": "Farmacias",
+        "insurer": "Aseguradoras"
+      },
+      "groupSelectorLabel": "Grupo",
+      "noGroupsTitle": "Aún no tienes un grupo",
+      "noGroupsDescription": "Crea un grupo familiar primero para administrar sus repositorios.",
+      "importButton": "Importar existente",
+      "createButton": "Crear nuevo",
+      "emptyStateTitle": "Aún no hay registros en este grupo",
+      "emptyStateDescription": "Importa un registro existente o crea uno nuevo.",
+      "confirmDeactivateTitle": "Quitar del repositorio del grupo",
+      "confirmDeactivateMessage": "¿Estás seguro de que deseas quitar \"{{name}}\" del repositorio de este grupo? El registro del catálogo global no se verá afectado.",
+      "toastImportSuccess": "Agregado al repositorio del grupo",
+      "toastCreateSuccess": "Creado y agregado al repositorio del grupo",
+      "toastDeactivateSuccess": "Quitado del repositorio del grupo",
+      "importModalTitle": "Importar existente",
+      "importConfirm": "Importar seleccionados",
+      "importSearchPlaceholder": "Buscar por nombre...",
+      "importSelectedCount": "{{count}} seleccionados",
+      "importNoResults": "No se encontraron registros que coincidan.",
+      "importEmptyTitle": "No queda nada por importar",
+      "importEmptyDescription": "Todos los registros activos del catálogo ya están en el repositorio de este grupo.",
+      "createModalTitle": {
+        "doctor": "Nuevo médico",
+        "medicalCenter": "Nuevo centro médico",
+        "pharmacy": "Nueva farmacia",
+        "insurer": "Nueva aseguradora"
+      },
+      "duplicateDialog": {
+        "title": "Ya existe un registro con ese nombre",
+        "message": {
+          "doctor": "Ya existe un médico con ese nombre en el catálogo global. ¿Deseas usar el registro existente o crear uno nuevo?",
+          "medicalCenter": "Ya existe un centro médico con ese nombre en el catálogo global. ¿Deseas usar el registro existente o crear uno nuevo?",
+          "pharmacy": "Ya existe una farmacia con ese nombre en el catálogo global. ¿Deseas usar el registro existente o crear uno nuevo?",
+          "insurer": "Ya existe una aseguradora con ese nombre en el catálogo global. ¿Deseas usar el registro existente o crear uno nuevo?"
+        },
+        "useExisting": "Usar existente",
+        "createAnyway": "Crear nuevo de todos modos"
+      }
+    }
+  },
+  "settings": {
+    "title": "Configuración",
+    "createGroupCta": {
+      "description": "¿Necesitas gestionar un grupo familiar propio? Puedes crear uno nuevo en cualquier momento.",
+      "button": "Crear tu propio grupo"
+    }
+  }
 }

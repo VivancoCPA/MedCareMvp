@@ -6,6 +6,8 @@ import {
   HeartPulse,
   LayoutDashboard,
   NotebookPen,
+  PanelLeftClose,
+  PanelLeftOpen,
   Pill,
   Settings,
   ShieldCheck,
@@ -18,6 +20,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { SidebarNavItem } from './SidebarNavItem'
 import { TooltipProvider } from '@/components/ui/tooltip'
+import { useSidebar } from '@/hooks/useSidebar'
 import { cn } from '@/lib/utils'
 import type { UserRole } from '@/types'
 
@@ -59,18 +62,19 @@ interface SidebarProps {
 
 export function Sidebar({ role, collapsed }: SidebarProps) {
   const { t } = useTranslation()
+  const { tier, toggleSidebarCollapsed } = useSidebar()
   const items = NAV_ITEMS[role]
 
   return (
     <aside
-      className={cn('flex h-full shrink-0 flex-col overflow-hidden bg-surface-dark transition-all duration-200 ease-in-out')}
+      className={cn('flex h-full shrink-0 flex-col overflow-hidden bg-sidebar transition-all duration-200 ease-in-out')}
       style={{ width: collapsed ? 'var(--sidebar-collapsed-width)' : 'var(--sidebar-width)' }}
     >
       <div className="flex h-[var(--topbar-height)] shrink-0 items-center gap-2 px-4">
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-white/10 text-xs font-semibold text-white">
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-white/10 text-xs font-semibold text-sidebar-foreground">
           MFC
         </span>
-        {!collapsed && <span className="truncate text-sm font-semibold text-white">MedFamilyCare</span>}
+        {!collapsed && <span className="truncate text-sm font-semibold text-sidebar-foreground">MedFamilyCare</span>}
       </div>
       <TooltipProvider delayDuration={200}>
         <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-2 py-2">
@@ -85,6 +89,27 @@ export function Sidebar({ role, collapsed }: SidebarProps) {
           ))}
         </nav>
       </TooltipProvider>
+      {tier === 'desktop' && (
+        <div className="shrink-0 border-t border-white/10 px-2 py-2">
+          <button
+            type="button"
+            onClick={toggleSidebarCollapsed}
+            className="flex w-full items-center gap-2 rounded-md px-2 py-2 text-sidebar-foreground/80 hover:bg-white/10 hover:text-sidebar-foreground"
+          >
+            {collapsed ? (
+              <>
+                <PanelLeftOpen className="h-4 w-4 shrink-0" />
+                <span className="sr-only">{t('layout.expandSidebar')}</span>
+              </>
+            ) : (
+              <>
+                <PanelLeftClose className="h-4 w-4 shrink-0" />
+                <span className="truncate text-sm">{t('layout.collapseSidebar')}</span>
+              </>
+            )}
+          </button>
+        </div>
+      )}
     </aside>
   )
 }

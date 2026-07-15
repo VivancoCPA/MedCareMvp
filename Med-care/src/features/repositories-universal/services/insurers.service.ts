@@ -6,6 +6,7 @@ export interface InsurerCreateDTO {
   name: string
   emergencyPhone: string | null
   website: string | null
+  logoUrl: string | null
 }
 
 export type InsurerUpdateDTO = InsurerCreateDTO

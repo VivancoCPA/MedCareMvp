@@ -1,5 +1,6 @@
 export { mockUsers } from './seed/users'
 export { mockGroups } from './seed/groups'
+export { mockGroupMembers } from './seed/group-members'
 export { mockNonAccountMembers } from './seed/non-account-members'
 export { mockHealthProfiles } from './seed/health-profiles'
 export { mockSpecialties } from './seed/specialties'

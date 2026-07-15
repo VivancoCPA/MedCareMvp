@@ -49,10 +49,9 @@ export interface User {
   gender: Gender
   phone: string | null
   role: UserRole
-  groupId: string | null
   isActive: boolean
-  shareHCWithPreviousGroup: boolean
-  previousGroupId: string | null
+  avatarUrl: string | null
+  originAdminId: string | null
   createdAt: string
   updatedAt: string
   deletedAt: string | null
@@ -63,9 +62,21 @@ export interface Group {
   name: string
   adminId: string
   isActive: boolean
+  avatarUrl: string | null
   createdAt: string
   updatedAt: string
   deletedAt: string | null
+}
+
+export interface GroupMember {
+  id: string
+  groupId: string
+  userId: string
+  isActive: boolean
+  joinedAt: string
+  leftAt: string | null
+  createdAt: string
+  updatedAt: string
 }
 
 export interface NonAccountMember {
@@ -78,6 +89,7 @@ export interface NonAccountMember {
   memberType: NonAccountMemberType
   breed: string | null
   bloodType: BloodType | null
+  avatarUrl: string | null
   createdAt: string
   updatedAt: string
   deletedAt: string | null
@@ -101,6 +113,7 @@ export interface Doctor {
   phone: string | null
   email: string | null
   medicalLicense: string | null
+  avatarUrl: string | null
   originGroupId: string | null
   isActive: boolean
   createdAt: string
@@ -126,6 +139,7 @@ export interface Insurer {
   name: string
   emergencyPhone: string | null
   website: string | null
+  logoUrl: string | null
   originGroupId: string | null
   isActive: boolean
   createdAt: string

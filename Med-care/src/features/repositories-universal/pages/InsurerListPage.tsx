@@ -17,6 +17,8 @@ export function InsurerListPage() {
   const [editingInsurer, setEditingInsurer] = useState<Insurer | null>(null)
   const [confirmTarget, setConfirmTarget] = useState<Insurer | null>(null)
   const [isDeactivating, setIsDeactivating] = useState(false)
+  const [reactivateTarget, setReactivateTarget] = useState<Insurer | null>(null)
+  const [isReactivating, setIsReactivating] = useState(false)
 
   function openCreate() {
     setEditingInsurer(null)
@@ -33,6 +35,7 @@ export function InsurerListPage() {
       name: values.name,
       emergencyPhone: values.emergencyPhone?.trim() ? values.emergencyPhone : null,
       website: values.website?.trim() ? values.website : null,
+      logoUrl: values.logoUrl ?? null,
     }
     if (editingInsurer) {
       await updateInsurer({ id: editingInsurer.id, data: dto })
@@ -52,6 +55,17 @@ export function InsurerListPage() {
     }
   }
 
+  async function handleConfirmReactivate() {
+    if (!reactivateTarget) return
+    setIsReactivating(true)
+    try {
+      await reactivateInsurer(reactivateTarget.id)
+      setReactivateTarget(null)
+    } finally {
+      setIsReactivating(false)
+    }
+  }
+
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
@@ -67,7 +81,7 @@ export function InsurerListPage() {
         isLoading={isLoading}
         onEdit={openEdit}
         onDeactivate={setConfirmTarget}
-        onReactivate={(insurer) => reactivateInsurer(insurer.id)}
+        onReactivate={setReactivateTarget}
       />
 
       <InsurerFormModal
@@ -84,6 +98,15 @@ export function InsurerListPage() {
         onConfirm={handleConfirmDeactivate}
         onCancel={() => setConfirmTarget(null)}
         isLoading={isDeactivating}
+      />
+
+      <ConfirmModal
+        open={!!reactivateTarget}
+        title={t('repositories.common.confirmReactivateTitle')}
+        message={t('repositories.insurers.confirmReactivateMessage')}
+        onConfirm={handleConfirmReactivate}
+        onCancel={() => setReactivateTarget(null)}
+        isLoading={isReactivating}
       />
     </div>
   )

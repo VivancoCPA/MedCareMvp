@@ -19,6 +19,8 @@ export function DoctorListPage() {
   const [editingDoctor, setEditingDoctor] = useState<Doctor | null>(null)
   const [confirmTarget, setConfirmTarget] = useState<Doctor | null>(null)
   const [isDeactivating, setIsDeactivating] = useState(false)
+  const [reactivateTarget, setReactivateTarget] = useState<Doctor | null>(null)
+  const [isReactivating, setIsReactivating] = useState(false)
 
   function openCreate() {
     setEditingDoctor(null)
@@ -37,6 +39,7 @@ export function DoctorListPage() {
       specialtyId: values.specialtyId,
       phone: values.phone?.trim() ? values.phone : null,
       email: values.email?.trim() ? values.email : null,
+      avatarUrl: values.avatarUrl ?? null,
     }
     if (editingDoctor) {
       await updateDoctor({ id: editingDoctor.id, data: dto })
@@ -56,6 +59,17 @@ export function DoctorListPage() {
     }
   }
 
+  async function handleConfirmReactivate() {
+    if (!reactivateTarget) return
+    setIsReactivating(true)
+    try {
+      await reactivateDoctor(reactivateTarget.id)
+      setReactivateTarget(null)
+    } finally {
+      setIsReactivating(false)
+    }
+  }
+
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
@@ -72,7 +86,7 @@ export function DoctorListPage() {
         isLoading={isLoading}
         onEdit={openEdit}
         onDeactivate={setConfirmTarget}
-        onReactivate={(doctor) => reactivateDoctor(doctor.id)}
+        onReactivate={setReactivateTarget}
       />
 
       <DoctorFormModal
@@ -89,6 +103,15 @@ export function DoctorListPage() {
         onConfirm={handleConfirmDeactivate}
         onCancel={() => setConfirmTarget(null)}
         isLoading={isDeactivating}
+      />
+
+      <ConfirmModal
+        open={!!reactivateTarget}
+        title={t('repositories.common.confirmReactivateTitle')}
+        message={t('repositories.doctors.confirmReactivateMessage')}
+        onConfirm={handleConfirmReactivate}
+        onCancel={() => setReactivateTarget(null)}
+        isLoading={isReactivating}
       />
     </div>
   )

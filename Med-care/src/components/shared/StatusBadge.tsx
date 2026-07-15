@@ -15,8 +15,8 @@ export function StatusBadge({ isActive }: StatusBadgeProps) {
       className={cn(
         'border-transparent',
         isActive
-          ? 'bg-[--color-signature-mint] text-[--color-signature-forest]'
-          : 'bg-[--color-surface-strong] text-[--color-muted]'
+          ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400'
+          : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
       )}
     >
       {isActive ? t('repositories.common.statusActive') : t('repositories.common.statusInactive')}
